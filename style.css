@@ -18,15 +18,16 @@ header {
 .language-switcher {
     position: absolute;
     top: 20px;
-    right: 20px;
-    text-align: right;
+    left: 20px;
+    text-align: left;
+    z-index: 1;
 }
 
 .language-switcher label {
     display: block;
     font-size: 14px;
     margin-bottom: 6px;
-    color: rgba(255,255,255,0.9);
+    color: rgba(255,255,255,0.95);
 }
 
 .language-switcher select {
