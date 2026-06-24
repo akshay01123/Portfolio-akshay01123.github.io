@@ -1,202 +1,67 @@
-                        <!-- Floating Jisho Button and Side Panel -->
-                        <button id="jisho-fab" title="Japanese Dictionary">📖</button>
-                        <div id="jisho-sidepanel" class="jisho-sidepanel-hidden" aria-modal="true" role="dialog">
-                            <div id="jisho-panel-header">
-                                <span>Jisho Dictionary</span>
-                                <button id="jisho-close" title="Close">&times;</button>
-                            </div>
-                            <div id="jisho-container">
-                                <form id="jisho-form" autocomplete="off">
-                                    <input type="text" id="jisho-input" placeholder="Enter Japanese word..." aria-label="Jisho input" required />
-                                    <button type="submit">Search</button>
-                                </form>
-                                <div id="jisho-results"></div>
-                            </div>
-                        </div>
-            <!-- Floating Chatbot Button and Side Panel -->
-            <button id="chatbot-fab" title="Chat with me">💬</button>
-            <div id="chatbot-sidepanel" class="chatbot-sidepanel-hidden" aria-modal="true" role="dialog">
-                <div id="chatbot-panel-header">
-                    <span>Ask Me (Chatbot)</span>
-                    <button id="chatbot-close" title="Close">&times;</button>
-                </div>
-                <div id="chatbot-container">
-                    <div id="chatbot-messages"></div>
-                    <form id="chatbot-form" autocomplete="off">
-                        <input type="text" id="chatbot-input" placeholder="Ask about my experience, skills, etc..." aria-label="Chatbot input" required />
-                        <button type="submit">Send</button>
-                    </form>
-                </div>
-            </div>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Akshay | My Journey</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Akshay — Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <nav class="main-nav">
-        <ul>
-            <li><a href="#" class="nav-link nav-home active">Home</a></li>
-            <li><a href="#about" class="nav-link nav-about">About</a></li>
-            <li><a href="#japaneasy101" class="nav-link nav-japaneasy">Japaneasy101</a></li>
+  <header class="site-header">
+    <div class="container header-row">
+      <a class="logo" href="#">Akshay</a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button id="menu-btn" class="menu-btn" aria-expanded="false" aria-controls="nav-list">☰</button>
+        <ul id="nav-list" class="nav-list">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
-    </nav>
-    <header>
-        <div class="language-switcher">
-            <label for="language-select">Language</label>
-            <select id="language-select">
-                <option value="en">English</option>
-                <option value="ja">日本語</option>
-            </select>
-        </div>
-
-        <div class="hero-inner">
-            <div class="avatar" aria-hidden="true">A</div>
-            <div class="hero-text">
-                <h1 id="hero-title">Hi, I'm Akshay 👋</h1>
-                <p id="hero-subtitle">International Sales Professional at a manufactuirng company | IIT Gandhinagar | Language Enthusiast</p>
-                <div class="social-links-with-counts">
-                    <div class="social-link-block">
-                        <a id="instagram-link" href="https://www.instagram.com/akshay0112" aria-label="Instagram" class="social" target="_blank" rel="noopener noreferrer">@akshay0112</a>
-                        <div class="social-count">
-                            <span class="sc-label">Followers:</span>
-                            <span class="sc-value" id="instagram-count">—</span>
-                        </div>
-                    </div>
-                    <div class="social-link-block">
-                        <a id="linkedin-link" href="https://www.linkedin.com/in/akshay543/" aria-label="LinkedIn" class="social" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                        <div class="social-count">
-                            <span class="sc-label">Followers:</span>
-                            <span class="sc-value" id="linkedin-count">—</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-actions">
-                    <button id="journey-button" onclick="scrollToSection()">My Journey</button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class="container">
-        <aside class="sidebar">
-            <div class="search">
-                <input id="search-input" type="search" placeholder="Search" aria-label="Search">
-            </div>
-            <nav class="categories">
-                <h3>Sections</h3>
-                <ul>
-                    <li><a href="#journey">My Journey</a></li>
-                    <li><a href="#skills">Core Skills</a></li>
-                </ul>
-            </nav>
-            <div class="newsletter">
-                <h4>Subscribe</h4>
-                <p>Get updates (placeholder)</p>
-            </div>
-        </aside>
-
-        <main class="content">
-            <article class="card" id="journey">
-                <h2 id="journey-title">My Journey</h2>
-                <p id="journey-paragraph-1">
-                    My journey began with a strong curiosity for learning and growth. 
-                    I pursued my Masters from IIT Gandhinagar, where I developed analytical thinking and problem-solving skills.
-                </p>
-
-                <p id="journey-paragraph-2">
-                    I work in International Sales, where I combine strategy, communication, and cultural understanding 
-                    to build global relationships and drive business growth.
-                </p>
-
-                <p id="journey-paragraph-3">
-                    Being fluent in Hindi, English, and Japanese allows me to connect across markets and 
-                    bridge opportunities between people and ideas.
-                </p>
-            </article>
-
-            <article class="card" id="timeline">
-                <h2>Work Timeline</h2>
-                <ul class="timeline-list">
-                    <li>
-                        <div class="timeline-date">Apr 2024 – Present</div>
-                        <div class="timeline-role">International Department, KUKEN KOGYO CO., LTD. (Fukuoka, Japan)</div>
-                        <div class="timeline-desc">Analyzed technical and operational data for overseas cooling tower projects. Acted as bridge between customers and production teams, translating requirements into technical inputs.</div>
-                    </li>
-                    <li>
-                        <div class="timeline-date">Apr 2022 – Mar 2024</div>
-                        <div class="timeline-role">Technical Department, KUKEN KOGYO CO., LTD. (Fukuoka, Japan)</div>
-                        <div class="timeline-desc">Achieved 114% and 105% evaluation scores for outstanding contributions. Worked on component design and production processes, ensuring accuracy and consistency.</div>
-                    </li>
-                    <li>
-                        <div class="timeline-date">May 2021 – Mar 2022</div>
-                        <div class="timeline-role">Technical Analyst (Remote)</div>
-                        <div class="timeline-desc">Conducted structured data analysis and market research to support engineering and business decisions. Improved data organization, documentation, and reporting.</div>
-                    </li>
-                    <li>
-                        <div class="timeline-date">Aug 2020 – Apr 2021</div>
-                        <div class="timeline-role">Postgraduate Researcher, Advanced Materials Processing Research Group (IIT Gandhinagar)</div>
-                        <div class="timeline-desc">Designed and executed data-driven experiments. Applied statistical analysis to evaluate material performance and process stability.</div>
-                    </li>
-                    <li>
-                        <div class="timeline-date">Jan 2020 – Jul 2020</div>
-                        <div class="timeline-role">Laboratory Teaching Assistant, IIT Gandhinagar</div>
-                        <div class="timeline-desc">Demonstrated metallographic sample preparation and microscopy to undergraduates in Phase Transformation and Phase Equilibrium Lab.</div>
-                    </li>
-                    <li>
-                        <div class="timeline-date">Jul 2019 – Dec 2019</div>
-                        <div class="timeline-role">Teaching Assistant, IIT Gandhinagar</div>
-                        <div class="timeline-desc">Demonstrated material testing methods to undergraduates in Mechanical Behaviour of Materials Course and Lab.</div>
-                    </li>
-                    <li>
-                        <div class="timeline-date">Jan 2019 – Jun 2019</div>
-                        <div class="timeline-role">Laboratory Teaching Assistant, IIT Gandhinagar</div>
-                        <div class="timeline-desc">Demonstrated metallographic sample preparation and inspection to undergraduates. Instructed sophomore engineering batch for experiments and assignments.</div>
-                    </li>
-                    <li>
-                        <div class="timeline-date">Jul 2018 – Dec 2018</div>
-                        <div class="timeline-role">Teaching Assistant, IIT Gandhinagar</div>
-                        <div class="timeline-desc">Assisted with Ordinary Differential Equations Course (data entry, invigilation).</div>
-                    </li>
-                    <li>
-                        <div class="timeline-date">2017 – Jun 2018</div>
-                        <div class="timeline-role">Team Member, Indian Society of New Era Engineers (ISNEE)</div>
-                        <div class="timeline-desc">Participated in Go-Kart Design Challenge 2017. Contributed to design, development, and business model for commercialization.</div>
-                    </li>
-                    <li>
-                        <div class="timeline-date">Jul 2017</div>
-                        <div class="timeline-role">Summer Intern, Rail Vikas Nigam Limited (Varanasi, India)</div>
-                        <div class="timeline-desc">Studied manufacturing unit layout at Diesel Locomotive Works. Proposed solutions to optimize productivity in loco assembly shop.</div>
-                    </li>
-                    <li>
-                        <div class="timeline-date">Jun 2016 – Jul 2016</div>
-                        <div class="timeline-role">Summer Intern, IIT Bombay</div>
-                        <div class="timeline-desc">Worked on CAD/CAM technologies and rapid prototyping research projects.</div>
-                    </li>
-                </ul>
-            </article>
-
-            <article class="card" id="skills">
-                <h2 id="skills-title">Core Skills</h2>
-                <ul class="skills-list">
-                    <li id="skill-1">International Sales Strategy</li>
-                    <li id="skill-2">Cross-Cultural Communication</li>
-                    <li id="skill-3">Japanese Language Proficiency</li>
-                    <li id="skill-4">Business Development</li>
-                    <li id="skill-5">Web Development (HTML, CSS, JavaScript)</li>
-                </ul>
-            </article>
-        </main>
+        <button id="theme-toggle" class="theme-toggle" aria-pressed="false" title="Toggle theme">🌙</button>
+      </nav>
     </div>
+  </header>
 
-    <footer>
-        <p id="footer-text">© 2026 Akshay | Built with passion 🚀</p>
-    </footer>
+  <main>
+    <section id="hero" class="hero container">
+      <h1>Hi, I'm Akshay</h1>
+      <p class="lead">I build clear, accessible websites and help products reach people globally.</p>
+      <p><a class="btn" href="#projects">See my work</a></p>
+    </section>
 
-    <script src="script.js"></script>
+    <section id="about" class="container">
+      <h2>About</h2>
+      <p>International Sales Professional with a background in engineering and a passion for web design and languages. Based in Fukuoka, Japan.</p>
+    </section>
+
+    <section id="projects" class="container">
+      <h2>Projects</h2>
+      <div class="projects-grid">
+        <article class="project-card">
+          <h3>Project One</h3>
+          <p>Short description of a project or work sample. Add links or images here.</p>
+        </article>
+        <article class="project-card">
+          <h3>Project Two</h3>
+          <p>Short description. Keep items concise so visitors can scan quickly.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="container">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:akshay.srivastava543@gmail.com">akshay.srivastava543@gmail.com</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Akshay</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
