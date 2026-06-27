@@ -259,15 +259,29 @@ body {
   border-radius: 14px;
 }
 
-.experience-list li strong {
-  display: block;
-  margin-bottom: 6px;
+.experience-item h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
 }
 
-.experience-list li span {
-  display: block;
+.experience-meta {
+  margin: 0 0 14px 0;
   color: var(--text-muted);
-  margin-bottom: 10px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.experience-bullets {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 10px;
+}
+
+.experience-bullets li {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.75;
 }
 
 .skills-list {
