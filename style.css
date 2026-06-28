@@ -304,6 +304,51 @@ body {
   box-shadow: 0 10px 24px rgba(12, 15, 30, 0.05);
 }
 
+.game-card {
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  max-width: 520px;
+}
+
+.snake-canvas {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border-radius: 16px;
+  background: #071029;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.game-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.game-controls span {
+  color: var(--text);
+  font-weight: 600;
+}
+
+#snake-restart {
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+#snake-restart:hover {
+  background: var(--accent-2);
+}
+
 .site-footer {
   background: #0f172a;
   color: #fff;
