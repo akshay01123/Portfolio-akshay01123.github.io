@@ -409,6 +409,8 @@ body {
   --bg: #071029;
   --muted: #9aa6bf;
   --text: #e6eef8;
+  --surface: #111826;
+  --border: #223049;
 }
 
 .hidden {
