@@ -213,6 +213,16 @@ body {
   border-radius: 16px;
   background: var(--surface);
   border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.hero-card p {
+  color: var(--text);
+}
+
+.hero-card a {
+  color: var(--accent);
+  text-decoration: underline;
 }
 
 .hero-card strong {
