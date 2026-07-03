@@ -101,9 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'projects.card2.text': 'Documentation and process templates to streamline communication between Japanese technical teams and overseas customers.',
       'contact.title': 'Contact',
       'contact.line1': 'Reach out to discuss collaborations, website work, or international sales opportunities.',
-      'footer.copyright': '© 2026 Akshay',
-      'search.placeholder': 'Search the page...',
-      'search.button': 'Search'
+      'footer.copyright': '© 2026 Akshay'
     },
     ja: {
       title: 'Akshay — ポートフォリオ',
@@ -147,14 +145,11 @@ document.addEventListener('DOMContentLoaded', () => {
       'projects.card2.text': '日本の技術チームと海外顧客のコミュニケーションを効率化するドキュメントとプロセステンプレート。',
       'contact.title': '連絡',
       'contact.line1': 'コラボ、ウェブ制作、国際営業のご相談はお気軽にどうぞ。',
-      'footer.copyright': '© 2026 Akshay',
-      'search.placeholder': 'ページ内を検索...',
-      'search.button': '検索'
+      'footer.copyright': '© 2026 Akshay'
     }
   };
 
   const languageSelect = document.getElementById('language-select');
-  const searchInput = document.getElementById('site-search');
 
   function translatePage(language) {
     const dictionary = translations[language] || translations.en;
@@ -166,13 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
         element.textContent = dictionary[key];
       }
     });
-    if (searchInput) {
-      searchInput.placeholder = dictionary['search.placeholder'];
-    }
-    const searchButton = document.querySelector('.search-button');
-    if (searchButton) {
-      searchButton.textContent = dictionary['search.button'];
-    }
     if (languageSelect) {
       languageSelect.value = language;
     }
@@ -191,34 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (languageSelect) {
     languageSelect.addEventListener('change', (event) => {
       setLanguage(event.target.value);
-    });
-  }
-
-  const searchForm = document.getElementById('search-form');
-  const pageSections = Array.from(document.querySelectorAll('main section'));
-
-  function clearSearchMatches() {
-    pageSections.forEach(section => section.classList.remove('search-match'));
-  }
-
-  if (searchForm && searchInput) {
-    searchForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      clearSearchMatches();
-      const query = searchInput.value.trim().toLowerCase();
-      if (!query) return;
-
-      const matches = pageSections.filter(section => section.textContent.toLowerCase().includes(query));
-      if (matches.length > 0) {
-        matches.forEach(section => section.classList.add('search-match'));
-        matches[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-
-    searchInput.addEventListener('input', () => {
-      if (!searchInput.value.trim()) {
-        clearSearchMatches();
-      }
     });
   }
 
