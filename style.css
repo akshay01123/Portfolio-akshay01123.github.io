@@ -48,6 +48,41 @@ body {
   border: 0;
 }
 
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -183,6 +218,7 @@ body {
   grid-template-columns: 1.6fr 1fr;
   gap: 24px;
   align-items: start;
+  animation: slideInLeft 0.8s ease-out;
 }
 
 .hero-copy {
@@ -248,6 +284,29 @@ h2 {
 
 .section-section {
   padding-top: 32px;
+  animation: slideInUp 0.8s ease-out;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+#about {
+  animation-delay: 0.2s;
+}
+
+#experience {
+  animation-delay: 0.4s;
+}
+
+#skills {
+  animation-delay: 0.6s;
+}
+
+#projects {
+  animation-delay: 0.8s;
+}
+
+#contact {
+  animation-delay: 1s;
 }
 
 .section-intro {
