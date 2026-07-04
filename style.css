@@ -48,6 +48,15 @@ body {
   border: 0;
 }
 
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 @keyframes slideInLeft {
   from {
     opacity: 0;
@@ -463,7 +472,8 @@ h2 {
 :root[data-theme="dark"] {
   --bg: #071029;
   --muted: #9aa6bf;
-  --text: #e6eef8;
+  --text: #ffffff;
+  --text-muted: #d0d8e0;
   --surface: #111826;
   --border: #223049;
 }
