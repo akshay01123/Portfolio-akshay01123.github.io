@@ -309,24 +309,11 @@ h2 {
   gap: 16px;
 }
 
-.experience-list li {
+.experience-list > li {
   padding: 18px 20px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 14px;
-}
-
-.experience-item h3 {
-  margin: 0 0 8px 0;
-  font-size: 1.1rem;
-  color: var(--text);
-}
-
-.experience-meta {
-  margin: 0 0 14px 0;
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  line-height: 1.5;
 }
 
 .experience-bullets {
@@ -340,6 +327,9 @@ h2 {
   margin: 0;
   color: var(--text-muted);
   line-height: 1.75;
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 .skills-list {
