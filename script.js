@@ -182,6 +182,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const scrollTargets = [
+    ...document.querySelectorAll('.hero, .section-section, .hero-card, .project-card, .experience-list > li, .skills-list li, .connect-card')
+  ];
+
+  scrollTargets.forEach((target, index) => {
+    target.classList.add('reveal-item');
+
+    if (target.matches('.project-card, .experience-list > li, .connect-card')) {
+      target.classList.add('reveal-left');
+    }
+
+    if (target.matches('.experience-list > li')) {
+      const itemIndex = Array.from(target.parentElement.children).indexOf(target);
+      target.style.setProperty('--delay', `${itemIndex * 0.08}s`);
+    } else if (target.matches('.project-card, .connect-card, .hero-card, .skills-list li')) {
+      const itemIndex = Array.from(target.parentElement.children).indexOf(target);
+      target.style.setProperty('--delay', `${itemIndex * 0.06}s`);
+    }
+  });
+
+  const scrollObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  scrollTargets.forEach(target => scrollObserver.observe(target));
+
   // Chat widget logic
   const chatToggle = document.getElementById('chat-toggle');
   const chatPanel = document.getElementById('chat-panel');
