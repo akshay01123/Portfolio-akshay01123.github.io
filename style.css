@@ -1,11 +1,13 @@
 /* Clean, minimal stylesheet for the simplified site */
 :root {
-  --bg: #ffffff;
+  --bg: #f7fbff;
   --muted: #6b7280;
   --accent: #0b5ed7;
   --accent-2: #4ea8ff;
-  --surface: #f8fbff;
-  --border: #e6eef8;
+  --surface: #ffffff;
+  --surface-elevated: #f3f8ff;
+  --border: #dbeafe;
+  --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
   --text: #0f172a;
   --text-muted: #475569;
   --sakura-petal: rgba(251, 228, 236, 0.4);
@@ -15,7 +17,9 @@
 
 * {
   box-sizing: border-box;
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, fill 0.35s ease;
 }
+
 
 html, body {
   min-height: 100%;
@@ -35,6 +39,21 @@ body {
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
 }
+
+body,
+button,
+input,
+select,
+textarea,
+.card,
+.hero-card,
+.project-card,
+.experience-list > li,
+.connect-card,
+.chat-panel {
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
 
 .sr-only {
   position: absolute;
@@ -226,6 +245,7 @@ h2 {
   background: var(--surface);
   border: 1px solid var(--border);
   color: var(--text);
+  box-shadow: var(--shadow);
 }
 
 .hero-card p {
@@ -313,8 +333,7 @@ h2 {
   padding: 18px 20px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 14px;
-}
+  border-radius: 14px;  box-shadow: var(--shadow);}
 
 .experience-bullets {
   margin: 0;
@@ -343,6 +362,7 @@ h2 {
   border: 1px solid var(--border);
   color: var(--text);
   font-weight: 600;
+  box-shadow: var(--shadow);
 }
 
 .project-card {
@@ -350,7 +370,7 @@ h2 {
   border-radius: 14px;
   border: 1px solid var(--border);
   background: var(--surface);
-  box-shadow: 0 10px 24px rgba(12, 15, 30, 0.05);
+  box-shadow: var(--shadow);
   color: var(--text);
 }
 
@@ -380,12 +400,14 @@ h2 {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  transform: translateY(0);
+  box-shadow: var(--shadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .connect-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(11, 94, 215, 0.12);
+  box-shadow: 0 12px 32px rgba(139, 92, 246, 0.16);
 }
 
 .connect-icon {
@@ -419,7 +441,7 @@ h2 {
 /* Snake game styles removed */
 
 .site-footer {
-  background: #0f172a;
+  background: linear-gradient(180deg, #090b18, #13182c);
   color: #fff;
   padding: 18px 0;
   text-align: center;
@@ -518,12 +540,18 @@ h2 {
 }
 
 :root[data-theme="dark"] {
-  --bg: #071029;
-  --muted: #9aa6bf;
-  --text: #ffffff;
-  --text-muted: #d0d8e0;
-  --surface: #111826;
-  --border: #223049;
+  --bg: #090b18;
+  --muted: #b8c0eb;
+  --accent: #8b5cf6;
+  --accent-2: #7c3aed;
+  --text: #f8fafc;
+  --text-muted: #c7d2fe;
+  --surface: #0f172a;
+  --surface-elevated: #141b2e;
+  --border: rgba(139, 92, 246, 0.18);
+  --shadow: 0 18px 40px rgba(139, 92, 246, 0.18);
+  --sakura-petal: rgba(139, 92, 246, 0.13);
+  --sakura-petal-2: rgba(167, 139, 250, 0.08);
 }
 
 .hidden {
@@ -549,7 +577,7 @@ h2 {
   color: #fff;
   cursor: pointer;
   font-weight: 700;
-  box-shadow: 0 14px 30px rgba(11, 94, 215, 0.18);
+  box-shadow: 0 14px 30px rgba(139, 92, 246, 0.18);
 }
 
 .chat-badge {
@@ -569,11 +597,11 @@ h2 {
   max-height: 520px;
   display: none;
   flex-direction: column;
-  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.18);
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
 
 .chat-panel.open {
@@ -622,7 +650,7 @@ h2 {
 }
 
 .chat-message.bot .chat-message-text {
-  background: #f1f5f9;
+  background: var(--surface-elevated);
   color: var(--text);
 }
 
@@ -657,7 +685,7 @@ h2 {
   padding: 12px 14px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--surface-elevated);
   color: var(--text);
 }
 
