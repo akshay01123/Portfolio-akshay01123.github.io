@@ -159,6 +159,35 @@ a:hover {
   text-decoration: underline;
 }
 
+.typewriter-wrapper {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 16px;
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+#typewriter-text {
+  display: inline-block;
+  min-height: 1.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  color: var(--accent);
+  animation: blinkCursor 0.8s steps(2, start) infinite;
+}
+
+@keyframes blinkCursor {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
 @keyframes slideInLeft {
   from {
     opacity: 0;

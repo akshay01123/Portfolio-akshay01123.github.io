@@ -43,6 +43,44 @@ document.addEventListener('DOMContentLoaded', () => {
     themeToggle.setAttribute('aria-pressed', String(isDark));
   }
 
+  function initTypewriter() {
+    const typewriterElement = document.getElementById('typewriter-text');
+    if (!typewriterElement) return;
+
+    const lines = [
+      'International Sales Engineer',
+      'Mechanical Engineer',
+      'AI Engineer (Learning)',
+      'Japanese Speaker'
+    ];
+
+    let currentLine = 0;
+    let currentChar = 0;
+    let deleting = false;
+
+    function type() {
+      const text = lines[currentLine];
+      typewriterElement.textContent = text.slice(0, currentChar);
+
+      if (!deleting && currentChar < text.length) {
+        currentChar += 1;
+        setTimeout(type, 90);
+      } else if (!deleting) {
+        deleting = true;
+        setTimeout(type, 1400);
+      } else if (deleting && currentChar > 0) {
+        currentChar -= 1;
+        setTimeout(type, 45);
+      } else {
+        deleting = false;
+        currentLine = (currentLine + 1) % lines.length;
+        setTimeout(type, 250);
+      }
+    }
+
+    type();
+  }
+
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
       const isDark = root.getAttribute('data-theme') === 'dark';
@@ -57,6 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     updateThemeButton();
   }
+
+  initTypewriter();
 
   const translations = {
     en: {
