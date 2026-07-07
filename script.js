@@ -186,6 +186,50 @@ document.addEventListener('DOMContentLoaded', () => {
       'contact.title': '連絡',
       'contact.line1': 'コラボ、ウェブ制作、国際営業のご相談はお気軽にどうぞ。',
       'footer.copyright': '© 2026 Akshay'
+    },
+    hi: {
+      title: 'अक्षय — पोर्टफोलियो',
+      'nav.home': 'होम',
+      'nav.about': 'मेरे बारे में',
+      'nav.projects': 'प्रोजेक्ट्स',
+      'nav.contact': 'संपर्क',
+      'hero.title': 'नमस्ते, मैं अक्षय हूँ',
+      'hero.lead': 'IIT स्नातकोत्तर पृष्ठभूमि और जापान में विनिर्माण, इंजीनियरिंग, और अंतरराष्ट्रीय व्यवसाय में 4+ वर्षों के अनुभव के साथ द्विभाषी वैश्विक पेशेवर।',
+      'hero.learn_more': 'और जानें',
+      'hero.location_title': 'स्थान',
+      'hero.location_value': 'फुकुओका, जापान',
+      'hero.specialties_title': 'विशेषताएँ',
+      'hero.specialties_value': 'प्रोजेक्ट समन्वय · डेटा विश्लेषण · जापानी (JLPT N2) · अंतरराष्ट्रीय व्यवसाय',
+      'about.title': 'मेरे बारे में',
+      'about.intro': 'IIT गांधीनगर की स्नातकोत्तर पृष्ठभूमि और जापान में विनिर्माण, इंजीनियरिंग, और अंतरराष्ट्रीय व्यवसाय क्षेत्रों में 4+ वर्षों के अनुभव के साथ द्विभाषी वैश्विक पेशेवर। मैं क्रॉस-फ़ंक्शनल टीमों का समन्वय करने, विदेशी परियोजनाओं का प्रबंधन करने, और गुणवत्ता, लागत, और समय पर ध्यान केंद्रित करते हुए डेटा-आधारित निर्णयों का समर्थन करने में सक्षम हूँ।',
+      'about.background_title': 'शिक्षा',
+      'about.background_text': 'IIT Gandhinagar से मैटीरियल्स साइंस और इंजीनियरिंग में M.Tech (CPI 8.38/10, 2018-20)। Uttarakhand Technical University से प्रोडक्शन इंजीनियरिंग में B.Tech (76.45%, 2014-18)। डेटा-संचालित प्रयोग और तकनीकी विश्लेषण में मजबूत आधार।',
+      'about.approach_title': 'मुख्य क्षेत्र',
+      'about.approach_text': 'प्रभावी अंतर-सांस्कृतिक संचार के माध्यम से तकनीकी और व्यवसाय कार्यों को जोड़ना। प्रक्रिया सुधार, परियोजना समन्वय, और डेटा-संचालित निर्णय समर्थन में कुशल। JLPT N2 जापानी, अंग्रेज़ी, और हिंदी में दक्ष, और बहुसांस्कृतिक टीमों के साथ काम करने का अनुभव।',
+      'experience.title': 'अनुभव',
+      'experience.item1.title': 'अंतरराष्ट्रीय सेल्स इंजीनियर',
+      'experience.item1.date': 'Kuken Industries, फुकुओका · 2024 – वर्तमान',
+      'experience.item1.text': 'ग्राहकों, इंजीनियरिंग, और उत्पादन टीमों के बीच वैश्विक बाजारों में विदेशी परियोजनाओं का समन्वय करता है',
+      'experience.item2.title': 'प्रोडक्शन इंजीनियर',
+      'experience.item2.date': 'Kuken Industries, मियावाका · 2022 – 2024',
+      'experience.item2.text': 'उत्पादन प्रक्रियाओं और घटक डिज़ाइन का समर्थन किया, विनिर्माण संचालन में गुणवत्ता और निरंतरता सुनिश्चित की',
+      'experience.item3.title': 'स्नातकोत्तर शोधकर्ता',
+      'experience.item3.date': 'IIT Gandhinagar · 2020 – 2021',
+      'experience.item3.text': 'डेटा-संचालित प्रयोग किए और सामग्री विज्ञान में प्रदर्शन मूल्यांकन के लिए सांख्यिकीय विश्लेषण लागू किया',
+      'skills.title': 'कौशल',
+      'skills.list.1': 'प्रोजेक्ट समन्वय और स्टेकहोल्डर संरेखण',
+      'skills.list.2': 'डेटा विश्लेषण और Excel (उन्नत)',
+      'skills.list.3': 'जापानी (JLPT N2) · अंग्रेज़ी · हिंदी',
+      'skills.list.4': 'Python, AutoCAD, SolidWorks',
+      'skills.list.5': 'प्रक्रिया सुधार और गुणवत्ता प्रबंधन',
+      'projects.title': 'प्रोजेक्ट्स',
+      'projects.card1.title': 'पोर्टफोलियो रिफ़्रेश',
+      'projects.card1.text': 'मेरी कहानी, कौशल और संपर्क जानकारी साझा करने के लिए एक स्पष्ट, रिस्पॉन्सिव व्यक्तिगत वेबसाइट।',
+      'projects.card2.title': 'सेल्स सपोर्ट टूलकिट',
+      'projects.card2.text': 'जापानी तकनीकी टीमों और विदेशी ग्राहकों के बीच संचार को सुव्यवस्थित करने के लिए दस्तावेज़ीकरण और प्रक्रिया टेम्पलेट।',
+      'contact.title': 'संपर्क',
+      'contact.line1': 'सहयोग, वेबसाइट कार्य, या अंतरराष्ट्रीय बिक्री अवसरों पर चर्चा करने के लिए संपर्क करें।',
+      'footer.copyright': '© 2026 अक्षय'
     }
   };
 
@@ -213,7 +257,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const savedLanguage = localStorage.getItem('site-language');
-  const defaultLanguage = savedLanguage || (navigator.language.startsWith('ja') ? 'ja' : 'en');
+  const browserLanguage = navigator.language.toLowerCase();
+  const defaultLanguage = savedLanguage || (browserLanguage.startsWith('ja') ? 'ja' : browserLanguage.startsWith('hi') ? 'hi' : 'en');
   setLanguage(defaultLanguage);
 
   if (languageSelect) {
