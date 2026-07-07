@@ -330,6 +330,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function getBestReply(query) {
     const normalized = query.toLowerCase();
+    if (/(about me|tell me about|who are you|yourself|your background|your story|what do you do|what are you|about akshay|who is akshay)/.test(normalized)) {
+      const section = chatSections.find(item => item.id === 'about');
+      return section ? summarizeSection(section) : null;
+    }
     if (/about|background|profile|story|approach/.test(normalized)) {
       const section = chatSections.find(item => item.id === 'about');
       return section ? summarizeSection(section) : null;
