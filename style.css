@@ -41,7 +41,7 @@ body {
   color: var(--text);
   background: radial-gradient(circle at 20% 10%, var(--bg-layer1), transparent 24%),
     radial-gradient(circle at 80% 15%, var(--bg-layer2), transparent 20%),
-    linear-gradient(180deg, rgba(247, 250, 255, 1), rgba(229, 241, 255, 1));
+    linear-gradient(180deg, var(--bg), var(--bg));
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
