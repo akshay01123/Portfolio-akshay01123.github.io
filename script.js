@@ -101,10 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const githubUsername = 'akshay01123';
 
   async function fetchGitHubCounts() {
-    const repoCountEl = document.getElementById('github-repos');
-    const commitCountEl = document.getElementById('github-commits');
-    const followerCountEl = document.getElementById('github-followers');
-    const starCountEl = document.getElementById('github-stars');
+    const statsLine = document.getElementById('github-stats-line');
 
     try {
       const userResponse = await fetch(`https://api.github.com/users/${githubUsername}`);
@@ -130,16 +127,14 @@ document.addEventListener('DOMContentLoaded', () => {
         commits = '--';
       }
 
-      if (repoCountEl) repoCountEl.textContent = userData.public_repos || reposData.length || '--';
-      if (followerCountEl) followerCountEl.textContent = userData.followers || '--';
-      if (starCountEl) starCountEl.textContent = totalStars;
-      if (commitCountEl) commitCountEl.textContent = commits;
+      const repos = userData.public_repos || reposData.length || '--';
+      const followers = userData.followers || '--';
+      const stars = totalStars || '--';
+      const lineText = `${repos} repos · ${commits} commits · ${followers} followers · ${stars} stars`;
+      if (statsLine) statsLine.textContent = lineText;
     } catch (error) {
       console.error('GitHub stats fetch failed:', error);
-      if (repoCountEl) repoCountEl.textContent = 'N/A';
-      if (commitCountEl) commitCountEl.textContent = 'N/A';
-      if (followerCountEl) followerCountEl.textContent = 'N/A';
-      if (starCountEl) starCountEl.textContent = 'N/A';
+      if (statsLine) statsLine.textContent = 'GitHub stats unavailable';
     }
   }
 
