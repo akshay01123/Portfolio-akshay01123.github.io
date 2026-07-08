@@ -98,6 +98,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initTypewriter();
 
+  const githubUsername = 'akshay01123';
+
+  async function fetchGitHubCounts() {
+    const repoCountEl = document.getElementById('github-repos');
+    const commitCountEl = document.getElementById('github-commits');
+    const followerCountEl = document.getElementById('github-followers');
+    const starCountEl = document.getElementById('github-stars');
+
+    try {
+      const userResponse = await fetch(`https://api.github.com/users/${githubUsername}`);
+      if (!userResponse.ok) throw new Error('GitHub user request failed');
+      const userData = await userResponse.json();
+
+      const reposResponse = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100`);
+      if (!reposResponse.ok) throw new Error('GitHub repos request failed');
+      const reposData = await reposResponse.json();
+
+      const totalStars = reposData.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
+
+      let commits = '--';
+      try {
+        const commitResponse = await fetch(`https://api.github.com/search/commits?q=author:${githubUsername}`, {
+          headers: { Accept: 'application/vnd.github.cloak-preview' }
+        });
+        if (commitResponse.ok) {
+          const commitData = await commitResponse.json();
+          commits = commitData.total_count || 0;
+        }
+      } catch (commitError) {
+        commits = '--';
+      }
+
+      if (repoCountEl) repoCountEl.textContent = userData.public_repos || reposData.length || '--';
+      if (followerCountEl) followerCountEl.textContent = userData.followers || '--';
+      if (starCountEl) starCountEl.textContent = totalStars;
+      if (commitCountEl) commitCountEl.textContent = commits;
+    } catch (error) {
+      console.error('GitHub stats fetch failed:', error);
+      if (repoCountEl) repoCountEl.textContent = 'N/A';
+      if (commitCountEl) commitCountEl.textContent = 'N/A';
+      if (followerCountEl) followerCountEl.textContent = 'N/A';
+      if (starCountEl) starCountEl.textContent = 'N/A';
+    }
+  }
+
+  fetchGitHubCounts();
+
   const translations = {
     en: {
       title: 'Akshay — Portfolio',
