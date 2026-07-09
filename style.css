@@ -64,7 +64,7 @@ html::before {
   height: 50vh;
   background: radial-gradient(circle at 30% 30%, var(--blob1), transparent 48%);
   filter: blur(120px);
-  animation: blobFloat1 20s ease-in-out infinite;
+  animation: none;
 }
 
 html::after {
@@ -74,13 +74,13 @@ html::after {
   height: 45vh;
   background: radial-gradient(circle at 40% 40%, var(--blob2), transparent 45%);
   filter: blur(110px);
-  animation: blobFloat2 22s ease-in-out infinite;
+  animation: none;
 }
 
 body::before {
   background: linear-gradient(135deg, var(--bg-layer1), var(--bg-layer2), var(--bg-rose));
   transform: translateX(-15%);
-  animation: backgroundShift 18s linear infinite;
+  animation: none;
 }
 
 body::after {
@@ -91,7 +91,7 @@ body::after {
   background-size: 12rem 12rem, 16rem 16rem, 25rem 25rem;
   opacity: 0.56;
   transform: scale(1.15);
-  animation: particleDrift 25s linear infinite;
+  animation: none;
 }
 
 @keyframes backgroundShift {
