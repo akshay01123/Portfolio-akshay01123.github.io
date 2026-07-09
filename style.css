@@ -521,26 +521,41 @@ h2 {
   backdrop-filter: blur(20px);
   display: grid;
   gap: 18px;
+  align-items: start;
 }
 
 .github-card p {
   margin: 0;
   color: var(--text-muted);
   font-size: 0.98rem;
+  text-align: center;
 }
 
 .github-card a {
   display: block;
+  width: 100%;
   border-radius: 22px;
   overflow: hidden;
   border: 1px solid var(--border);
+  background: var(--surface);
 }
 
 .github-graph {
   width: 100%;
+  height: auto;
   display: block;
-  max-width: 100%;
+  border-radius: 0;
+  image-rendering: crisp-edges;
+}
+
+.github-graph-card {
+  margin-top: 24px;
+  width: 100%;
+  overflow: hidden;
   border-radius: 22px;
+  background: var(--surface-glass);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 .github-stats-grid {
