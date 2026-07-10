@@ -451,18 +451,25 @@ h2 {
 }
 
 .skills-list {
-  grid-template-columns: repeat(2, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
 }
 
 .skills-list li {
-  padding: 18px 20px;
-  border-radius: 18px;
+  padding: 12px 14px;
+  border-radius: 12px;
   background: var(--surface-glass);
   border: 1px solid var(--border);
   color: var(--text);
   font-weight: 600;
   box-shadow: var(--shadow);
   backdrop-filter: blur(20px);
+  font-size: 0.9rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
 }
 
 .project-card {
