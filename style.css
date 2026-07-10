@@ -685,6 +685,21 @@ h2 {
   height: 18px;
 }
 
+.visitor-counter {
+  margin: 8px 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.visitor-counter span {
+  font-weight: 600;
+  color: var(--accent);
+}
+
 @media (max-width: 960px) {
   .hero {
     grid-template-columns: 1fr;

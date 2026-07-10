@@ -98,6 +98,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initTypewriter();
 
+  // Initialize visitor counter
+  function initVisitorCounter() {
+    const visitorCount = document.getElementById('visitor-count');
+    if (!visitorCount) return;
+
+    let count = parseInt(localStorage.getItem('visitorCount') || '0');
+    count += 1;
+    localStorage.setItem('visitorCount', count);
+    visitorCount.textContent = count.toLocaleString();
+  }
+
+  initVisitorCounter();
+
   const githubUsername = 'akshay01123';
 
   async function fetchGitHubCounts() {
