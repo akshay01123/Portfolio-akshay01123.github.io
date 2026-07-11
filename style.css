@@ -889,6 +889,19 @@ h2 {
   --overlay-particles: rgba(59, 130, 246, 0.10);
 }
 
+/* Make central content text black in dark mode for improved visibility per user request */
+:root[data-theme="dark"] .hero-copy,
+:root[data-theme="dark"] .lead,
+:root[data-theme="dark"] .typewriter-wrapper,
+:root[data-theme="dark"] .section-intro,
+:root[data-theme="dark"] .skill-card-title,
+:root[data-theme="dark"] .skill-card-description,
+:root[data-theme="dark"] .skill-category h3,
+:root[data-theme="dark"] .project-card h3,
+:root[data-theme="dark"] .github-stats-line {
+  color: #000 !important;
+}
+
 .hidden {
   display: none !important;
 }
