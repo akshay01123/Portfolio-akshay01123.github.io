@@ -40,7 +40,7 @@ body {
   margin: 0;
   position: relative;
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  color: var(--text);
+  color: var(--text-body);
   background: radial-gradient(circle at 20% 10%, var(--bg-layer1), transparent 24%),
     radial-gradient(circle at 80% 15%, var(--bg-layer2), transparent 20%),
     linear-gradient(180deg, var(--bg), var(--bg));
@@ -340,7 +340,15 @@ a:hover {
 }
 
 h2 {
-  color: var(--text);
+  color: var(--text-heading);
+}
+
+h1, h2, h3, h4, h5, h6,
+.skill-card-title,
+.project-card h3,
+.connect-card h3,
+.chat-header strong {
+  color: var(--text-heading);
 }
 
 .lead {
@@ -872,6 +880,8 @@ h2 {
    --muted: #9ca3ff;
    --accent: #8b5cf6;
    --accent-2: #7c3aed;
+   --text-heading: #ffffff;
+   --text-body: #d8e0ff;
    --text: #f8fafc;
    --text-muted: #c7d2fe;
    --surface: #0f172a;
