@@ -1,6 +1,6 @@
 /* Clean, minimal stylesheet for the simplified site */
 :root {
-  --bg: #f7fbff;
+  --bg: #f4f7ff;
   --muted: #6b7280;
   --accent: #0b5ed7;
   --accent-2: #4ea8ff;
@@ -16,12 +16,12 @@
   --text-muted: #6b7280;
   --sakura-petal: rgba(251, 228, 236, 0.4);
   --sakura-petal-2: rgba(255, 240, 246, 0.25);
-  --bg-layer1: rgba(59, 130, 246, 0.18);
-  --bg-layer2: rgba(139, 92, 246, 0.18);
-  --bg-rose: rgba(99, 102, 241, 0.14);
-  --blob1: rgba(139, 92, 246, 0.55);
-  --blob2: rgba(59, 130, 246, 0.45);
-  --overlay-particles: rgba(59, 130, 246, 0.16);
+  --bg-layer1: rgba(56, 189, 248, 0.15);
+  --bg-layer2: rgba(99, 102, 241, 0.14);
+  --bg-rose: rgba(236, 72, 153, 0.09);
+  --blob1: rgba(59, 130, 246, 0.34);
+  --blob2: rgba(168, 85, 247, 0.28);
+  --overlay-particles: rgba(99, 102, 241, 0.1);
   --max-width: 1100px;
 }
 
@@ -40,9 +40,10 @@ body {
   position: relative;
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: var(--text);
-  background: radial-gradient(circle at 20% 10%, var(--bg-layer1), transparent 24%),
-    radial-gradient(circle at 80% 15%, var(--bg-layer2), transparent 20%),
-    linear-gradient(180deg, var(--bg), var(--bg));
+  background: radial-gradient(circle at 14% 8%, var(--bg-layer1), transparent 34%),
+    radial-gradient(circle at 86% 14%, var(--bg-layer2), transparent 30%),
+    radial-gradient(circle at 50% 96%, var(--bg-rose), transparent 36%),
+    linear-gradient(180deg, #f8fbff 0%, var(--bg) 48%, #eef4ff 100%);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -61,37 +62,38 @@ body::after {
 html::before {
   top: -10%;
   left: -10%;
-  width: 55vw;
-  height: 50vh;
+  width: 52vw;
+  height: 48vh;
   background: radial-gradient(circle at 30% 30%, var(--blob1), transparent 48%);
-  filter: blur(120px);
+  filter: blur(96px);
   animation: none;
 }
 
 html::after {
   bottom: -15%;
   right: -10%;
-  width: 50vw;
-  height: 45vh;
+  width: 48vw;
+  height: 42vh;
   background: radial-gradient(circle at 40% 40%, var(--blob2), transparent 45%);
-  filter: blur(110px);
+  filter: blur(92px);
   animation: none;
 }
 
 body::before {
-  background: linear-gradient(135deg, var(--bg-layer1), var(--bg-layer2), var(--bg-rose));
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.52), transparent 35%, rgba(99, 102, 241, 0.08) 100%);
   transform: translateX(-15%);
+  opacity: 0.55;
   animation: none;
 }
 
 body::after {
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.32) 0%, transparent 18%),
-    radial-gradient(circle, rgba(255, 255, 255, 0.18) 0%, transparent 25%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 16%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.14) 0%, transparent 24%),
     radial-gradient(circle, var(--overlay-particles) 0%, transparent 14%);
-  background-size: 12rem 12rem, 16rem 16rem, 25rem 25rem;
-  opacity: 0.56;
-  transform: scale(1.15);
+  background-size: 14rem 14rem, 20rem 20rem, 30rem 30rem;
+  opacity: 0.4;
+  transform: scale(1.1);
   animation: none;
 }
 
@@ -900,9 +902,10 @@ h1, h2, h3, h4, h5, h6,
  }
 
 :root[data-theme="dark"] body {
-  background: radial-gradient(circle at 20% 10%, var(--bg-layer1), transparent 22%),
-    radial-gradient(circle at 80% 15%, var(--bg-layer2), transparent 18%),
-    linear-gradient(180deg, var(--bg), var(--bg));
+  background: radial-gradient(circle at 16% 10%, var(--bg-layer1), transparent 30%),
+    radial-gradient(circle at 84% 14%, var(--bg-layer2), transparent 28%),
+    radial-gradient(circle at 50% 96%, var(--bg-rose), transparent 34%),
+    linear-gradient(180deg, #05060f 0%, var(--bg) 52%, #04050d 100%);
 }
 
 :root[data-theme="dark"] html::before {
@@ -914,23 +917,11 @@ h1, h2, h3, h4, h5, h6,
 }
 
 :root[data-theme="dark"] body::before {
-  background: linear-gradient(135deg, var(--bg-layer1), var(--bg-layer2), var(--bg-rose));
+  background: linear-gradient(140deg, rgba(148, 163, 184, 0.08), transparent 35%, rgba(99, 102, 241, 0.14) 100%);
 }
 
 :root[data-theme="dark"] body::after {
-  opacity: 0.45;
-}
-/* Make central content text black in dark mode for improved visibility per user request */
-:root[data-theme="dark"] .hero-copy,
-:root[data-theme="dark"] .lead,
-:root[data-theme="dark"] .typewriter-wrapper,
-:root[data-theme="dark"] .section-intro,
-:root[data-theme="dark"] .skill-card-title,
-:root[data-theme="dark"] .skill-card-description,
-:root[data-theme="dark"] .skill-category h3,
-:root[data-theme="dark"] .project-card h3,
-:root[data-theme="dark"] .github-stats-line {
-  color: #000 !important;
+  opacity: 0.28;
 }
 
 .hidden {
