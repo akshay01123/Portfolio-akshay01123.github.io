@@ -16,11 +16,11 @@
   --text-muted: #6b7280;
   --sakura-petal: rgba(251, 228, 236, 0.4);
   --sakura-petal-2: rgba(255, 240, 246, 0.25);
-  --bg-layer1: rgba(59, 130, 246, 0.18);
-  --bg-layer2: rgba(139, 92, 246, 0.18);
-  --bg-rose: rgba(99, 102, 241, 0.14);
-  --blob1: rgba(139, 92, 246, 0.55);
-  --blob2: rgba(59, 130, 246, 0.45);
+  --bg-layer1: rgba(59, 130, 246, 0.22);
+  --bg-layer2: rgba(37, 99, 235, 0.18);
+  --bg-rose: rgba(96, 165, 250, 0.16);
+  --blob1: rgba(37, 99, 235, 0.50);
+  --blob2: rgba(59, 130, 246, 0.52);
   --overlay-particles: rgba(59, 130, 246, 0.16);
   --max-width: 1100px;
 }
@@ -82,7 +82,7 @@ html::after {
 
 body::before {
   inset: 0;
-  background: linear-gradient(135deg, var(--bg-layer1), var(--bg-layer2), var(--bg-rose));
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.20), rgba(37, 99, 235, 0.16), rgba(96, 165, 250, 0.14));
   transform: none;
   animation: none;
 }
