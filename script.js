@@ -1,9 +1,7 @@
-// Minimal site script: menu toggle, smooth scroll, theme toggle
+// Minimal site script: menu toggle, smooth scroll
 document.addEventListener('DOMContentLoaded', () => {
   const menuBtn = document.getElementById('menu-btn');
   const navList = document.getElementById('nav-list');
-  const themeToggle = document.getElementById('theme-toggle');
-  const root = document.documentElement;
 
   if (menuBtn && navList) {
     menuBtn.addEventListener('click', () => {
@@ -31,17 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-
-  // Theme toggle (light/dark) persisted in localStorage
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark') root.setAttribute('data-theme', 'dark');
-
-  function updateThemeButton() {
-    if (!themeToggle) return;
-    const isDark = root.getAttribute('data-theme') === 'dark';
-    themeToggle.textContent = isDark ? '☀️' : '🌙';
-    themeToggle.setAttribute('aria-pressed', String(isDark));
-  }
 
   function initTypewriter() {
     const typewriterElement = document.getElementById('typewriter-text');
@@ -79,21 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     type();
-  }
-
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const isDark = root.getAttribute('data-theme') === 'dark';
-      if (isDark) {
-        root.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'light');
-      } else {
-        root.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-      }
-      updateThemeButton();
-    });
-    updateThemeButton();
   }
 
   initTypewriter();
