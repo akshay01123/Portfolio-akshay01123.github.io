@@ -22,7 +22,7 @@
   --blob1: rgba(59, 130, 246, 0.34);
   --blob2: rgba(168, 85, 247, 0.28);
   --overlay-particles: rgba(99, 102, 241, 0.1);
-  --max-width: 1100px;
+  --max-width: 960px;
 }
 
 * {
@@ -237,9 +237,16 @@ a:hover {
 
 
 .container {
+  width: min(92vw, var(--max-width));
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 24px 20px;
+}
+
+@media (min-width: 1600px) {
+  .container {
+    max-width: 52vw;
+  }
 }
 
 .site-header {
