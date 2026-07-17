@@ -85,6 +85,78 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const githubUsername = 'akshay01123';
 
+  function formatUtcDate(date) {
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  function calculateStreaks(contributions) {
+    const oneDayMs = 24 * 60 * 60 * 1000;
+    const activeDates = contributions
+      .filter(item => Number(item.count) > 0 && item.date)
+      .map(item => item.date)
+      .sort((first, second) => first.localeCompare(second));
+
+    if (activeDates.length === 0) {
+      return { current: 0, longest: 0 };
+    }
+
+    const activeDateSet = new Set(activeDates);
+
+    let longest = 0;
+    let running = 0;
+    let previousDate = null;
+
+    activeDates.forEach(dateString => {
+      const currentDate = new Date(`${dateString}T00:00:00Z`);
+      if (!previousDate) {
+        running = 1;
+      } else {
+        const diff = currentDate.getTime() - previousDate.getTime();
+        running = diff === oneDayMs ? running + 1 : 1;
+      }
+      if (running > longest) longest = running;
+      previousDate = currentDate;
+    });
+
+    let current = 0;
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+    let cursor = new Date(today);
+
+    if (!activeDateSet.has(formatUtcDate(cursor))) {
+      cursor = new Date(cursor.getTime() - oneDayMs);
+    }
+
+    while (activeDateSet.has(formatUtcDate(cursor))) {
+      current += 1;
+      cursor = new Date(cursor.getTime() - oneDayMs);
+    }
+
+    return { current, longest };
+  }
+
+  async function fetchGitHubStreaks() {
+    const streakLine = document.getElementById('github-streak-line');
+    if (!streakLine) return;
+
+    try {
+      const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${githubUsername}?y=last`);
+      if (!response.ok) throw new Error('Contribution calendar request failed');
+
+      const data = await response.json();
+      const contributions = Array.isArray(data.contributions) ? data.contributions : [];
+      const { current, longest } = calculateStreaks(contributions);
+
+      streakLine.textContent = `${current} day current streak · ${longest} day longest streak`;
+    } catch (error) {
+      console.error('GitHub streak fetch failed:', error);
+      streakLine.textContent = 'Streak stats unavailable';
+    }
+  }
+
   async function fetchGitHubCounts() {
     const statsLine = document.getElementById('github-stats-line');
 
@@ -124,6 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   fetchGitHubCounts();
+  fetchGitHubStreaks();
 
   const translations = {
     en: {

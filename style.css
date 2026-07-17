@@ -749,6 +749,15 @@ h1, h2, h3, h4, h5, h6,
   text-overflow: ellipsis;
 }
 
+.github-streak-line {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  white-space: normal;
+  overflow: visible;
+  text-overflow: initial;
+}
+
 .github-note {
   margin: 18px 0 0;
   color: var(--text-muted);
