@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const contributions = Array.isArray(data.contributions) ? data.contributions : [];
       const { current, longest } = calculateStreaks(contributions);
 
-      streakLine.textContent = `${current} day current streak · ${longest} day longest streak`;
+      streakLine.textContent = `[Current Streak: ${current} day${current === 1 ? '' : 's'} | Longest Streak: ${longest} day${longest === 1 ? '' : 's'}]`;
     } catch (error) {
       console.error('GitHub streak fetch failed:', error);
       streakLine.textContent = 'Streak stats unavailable';
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const repos = userData.public_repos || reposData.length || '--';
       const followers = userData.followers || '--';
       const stars = totalStars || '--';
-      const lineText = `${repos} repos · ${commits} commits · ${followers} followers · ${stars} stars`;
+      const lineText = `Repos: ${repos} · Commits: ${commits} · Followers: ${followers} · Stars: ${stars}`;
       if (statsLine) statsLine.textContent = lineText;
     } catch (error) {
       console.error('GitHub stats fetch failed:', error);
