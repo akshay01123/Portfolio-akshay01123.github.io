@@ -138,9 +138,68 @@ document.addEventListener('DOMContentLoaded', () => {
     return { current, longest };
   }
 
-  async function fetchGitHubStreaks() {
+  function getLastThreeMonthsContributions(contributions) {
+    const oneDayMs = 24 * 60 * 60 * 1000;
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+
+    const contributionMap = new Map(
+      contributions
+        .filter(item => item && item.date)
+        .map(item => [item.date, Number(item.count) || 0])
+    );
+
+    const windowDays = 90;
+    const days = [];
+
+    for (let offset = windowDays - 1; offset >= 0; offset -= 1) {
+      const day = new Date(today.getTime() - offset * oneDayMs);
+      const dateString = formatUtcDate(day);
+      days.push({
+        date: dateString,
+        count: contributionMap.get(dateString) || 0
+      });
+    }
+
+    return days;
+  }
+
+  function getContributionLevel(count, maxCount) {
+    if (count <= 0) return 0;
+    if (maxCount <= 1) return 4;
+    const ratio = count / maxCount;
+    if (ratio >= 0.75) return 4;
+    if (ratio >= 0.5) return 3;
+    if (ratio >= 0.25) return 2;
+    return 1;
+  }
+
+  function renderContributionHeatmap(days) {
+    const heatmap = document.getElementById('github-heatmap');
+    if (!heatmap) return;
+
+    heatmap.innerHTML = '';
+
+    if (!days.length) {
+      heatmap.textContent = 'Contribution graph unavailable';
+      return;
+    }
+
+    const maxCount = days.reduce((maxValue, day) => Math.max(maxValue, day.count), 0);
+
+    days.forEach(day => {
+      const level = getContributionLevel(day.count, maxCount);
+      const cell = document.createElement('span');
+      cell.className = `github-heatmap-day level-${level}`;
+      cell.title = `${day.date}: ${day.count} contribution${day.count === 1 ? '' : 's'}`;
+      heatmap.appendChild(cell);
+    });
+  }
+
+  async function fetchGitHubContributionStats() {
     const streakLine = document.getElementById('github-streak-line');
-    if (!streakLine) return;
+    const heatmap = document.getElementById('github-heatmap');
+    if (!streakLine && !heatmap) return;
 
     try {
       const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${githubUsername}?y=last`);
@@ -149,11 +208,21 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
       const contributions = Array.isArray(data.contributions) ? data.contributions : [];
       const { current, longest } = calculateStreaks(contributions);
+      const lastThreeMonths = getLastThreeMonthsContributions(contributions);
 
-      streakLine.textContent = `[Current Streak: ${current} day${current === 1 ? '' : 's'} | Longest Streak: ${longest} day${longest === 1 ? '' : 's'}]`;
+      renderContributionHeatmap(lastThreeMonths);
+
+      if (streakLine) {
+        streakLine.textContent = `[Current Streak: ${current} day${current === 1 ? '' : 's'} | Longest Streak: ${longest} day${longest === 1 ? '' : 's'}]`;
+      }
     } catch (error) {
       console.error('GitHub streak fetch failed:', error);
-      streakLine.textContent = 'Streak stats unavailable';
+      if (streakLine) {
+        streakLine.textContent = 'Streak stats unavailable';
+      }
+      if (heatmap) {
+        heatmap.textContent = 'Contribution graph unavailable';
+      }
     }
   }
 
@@ -196,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   fetchGitHubCounts();
-  fetchGitHubStreaks();
+  fetchGitHubContributionStats();
 
   const translations = {
     en: {

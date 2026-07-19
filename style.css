@@ -737,6 +737,46 @@ h1, h2, h3, h4, h5, h6,
   margin-top: 24px;
 }
 
+.github-heatmap-link {
+  text-decoration: none;
+}
+
+.github-heatmap {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(30, minmax(10px, 1fr));
+  gap: 4px;
+  padding: 14px;
+}
+
+.github-heatmap-day {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  background: var(--surface-elevated);
+}
+
+.github-heatmap-day.level-1 {
+  background: var(--accent);
+  opacity: 0.25;
+}
+
+.github-heatmap-day.level-2 {
+  background: var(--accent);
+  opacity: 0.45;
+}
+
+.github-heatmap-day.level-3 {
+  background: var(--accent);
+  opacity: 0.7;
+}
+
+.github-heatmap-day.level-4 {
+  background: var(--accent);
+  opacity: 1;
+}
+
 .github-stats-line {
   margin: 18px 0 0;
   color: var(--text);
