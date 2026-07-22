@@ -402,6 +402,66 @@ document.addEventListener('DOMContentLoaded', () => {
 
   scrollTargets.forEach(target => scrollObserver.observe(target));
 
+  function initMouseEffects() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const supportsHover = window.matchMedia('(hover: hover)').matches;
+    if (reduceMotion || !supportsHover) return;
+
+    const cards = document.querySelectorAll('.hero-card, .skill-card, .project-card, .connect-card, .experience-list > li, .github-card');
+    if (cards.length === 0) return;
+
+    cards.forEach((card) => {
+      card.classList.add('mouse-card');
+
+      card.addEventListener('mousemove', (event) => {
+        const rect = card.getBoundingClientRect();
+        const localX = event.clientX - rect.left;
+        const localY = event.clientY - rect.top;
+
+        const percentX = (localX / rect.width) * 100;
+        const percentY = (localY / rect.height) * 100;
+        card.style.setProperty('--mouse-x', `${percentX}%`);
+        card.style.setProperty('--mouse-y', `${percentY}%`);
+
+        const rotateY = ((localX / rect.width) - 0.5) * 8;
+        const rotateX = (0.5 - (localY / rect.height)) * 8;
+
+        card.classList.add('is-tilting');
+        card.style.transform = `perspective(900px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-8px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.classList.remove('is-tilting');
+        card.style.transform = '';
+      });
+
+      card.addEventListener('pointerdown', (event) => {
+        const rect = card.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'card-ripple';
+        ripple.style.left = `${event.clientX - rect.left}px`;
+        ripple.style.top = `${event.clientY - rect.top}px`;
+        card.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 650);
+      });
+    });
+
+    const cursorGlow = document.createElement('div');
+    cursorGlow.className = 'cursor-glow';
+    document.body.appendChild(cursorGlow);
+
+    window.addEventListener('mousemove', (event) => {
+      cursorGlow.classList.add('active');
+      cursorGlow.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
+    });
+
+    window.addEventListener('mouseleave', () => {
+      cursorGlow.classList.remove('active');
+    });
+  }
+
+  initMouseEffects();
+
   // Chat widget logic
   const chatToggle = document.getElementById('chat-toggle');
   const chatPanel = document.getElementById('chat-panel');
