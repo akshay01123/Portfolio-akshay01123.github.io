@@ -302,57 +302,159 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: 1000;
+  display: none;
 }
 
-.header-row {
+.floating-dock {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 18px 20px;
-}
-
-.main-nav {
-  display: flex;
-  align-items: center;
+  justify-content: center;
   gap: 12px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  backdrop-filter: blur(24px) saturate(160%);
+  box-shadow: 0 16px 40px rgba(79, 70, 229, 0.15);
+  z-index: 999;
+  animation: dockFloat 3s ease-in-out infinite;
 }
 
-.language-switcher {
+@keyframes dockFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-dock {
+    animation: none;
+  }
+  
+  .dock-item {
+    transition: none;
+  }
+  
+  .dock-item:hover {
+    transform: none;
+  }
+}
+
+.dock-item {
   display: flex;
   align-items: center;
-}
-
-.language-select {
-  appearance: none;
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  border-radius: 999px;
-  padding: 10px 14px;
-  background: var(--select-surface);
-  color: var(--text);
-  font-weight: 600;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: var(--accent);
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: bottom center;
+  position: relative;
   cursor: pointer;
 }
 
-.language-select option {
+.dock-item svg {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.dock-item:hover {
+  transform: scale(1.35) translateY(-12px);
+  background: rgba(79, 70, 229, 0.1);
+}
+
+.dock-item:hover svg {
+  width: 28px;
+  height: 28px;
+}
+
+.dock-item:active {
+  transform: scale(1.15) translateY(-8px);
+}
+
+.dock-language {
+  margin-left: 8px;
+  border-left: 1px solid rgba(79, 70, 229, 0.2);
+  padding-left: 12px;
+}
+
+.dock-language-select {
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.dock-language-select:hover {
+  background: rgba(79, 70, 229, 0.1);
+}
+
+.dock-language-select option {
+  background: var(--surface);
   color: var(--text);
+}
+
+@media (max-width: 768px) {
+  .floating-dock {
+    bottom: 16px;
+    gap: 8px;
+    padding: 12px 14px;
+  }
+
+  .dock-item {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dock-item svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .dock-item:hover svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .dock-language {
+    display: none;
+  }
+}
+
+.header-row {
+  display: none;
+}
+
+.main-nav {
+  display: none;
+}
+
+.language-switcher {
+  display: none;
+}
+
+.language-select {
+  display: none;
 }
 
 .menu-btn {
   display: none;
-  background: transparent;
-  border: none;
-  color: var(--text);
-  font-size: 1.25rem;
-  cursor: pointer;
 }
 
 .nav-list {
-  display: flex;
-  gap: 12px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  display: none;
 }
 
 .nav-list a {
@@ -1152,44 +1254,24 @@ h1, h2, h3, h4, h5, h6,
 }
 
 @media (max-width: 800px) {
-  .menu-btn {
-    display: inline-flex;
-  }
-
-  .nav-list {
-    position: absolute;
-    right: 20px;
-    top: 64px;
-    background: linear-gradient(160deg, rgba(255, 255, 255, 0.88), rgba(238, 245, 255, 0.72));
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    box-shadow: 0 14px 30px rgba(79, 70, 229, 0.18);
-    backdrop-filter: blur(20px);
-    padding: 12px;
-    border-radius: 8px;
-    flex-direction: column;
-    display: none;
-  }
-
-  .nav-list.open {
-    display: flex;
-  }
-
-  .header-row {
-    padding: 12px 16px;
-  }
-
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 800px) {
   .search-form {
     flex-direction: column;
   }
 
   .search-button {
     width: 100%;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-section {
+    padding: 24px 18px;
   }
 }
 

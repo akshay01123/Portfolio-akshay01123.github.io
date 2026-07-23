@@ -1,22 +1,5 @@
 // Minimal site script: menu toggle, smooth scroll
 document.addEventListener('DOMContentLoaded', () => {
-  const menuBtn = document.getElementById('menu-btn');
-  const navList = document.getElementById('nav-list');
-
-  if (menuBtn && navList) {
-    menuBtn.addEventListener('click', () => {
-      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      menuBtn.setAttribute('aria-expanded', String(!expanded));
-      navList.classList.toggle('open');
-    });
-
-    // close menu when a link is clicked
-    navList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      navList.classList.remove('open');
-      menuBtn.setAttribute('aria-expanded', 'false');
-    }));
-  }
-
   // Smooth scroll for internal anchors
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', (e) => {
@@ -264,6 +247,8 @@ document.addEventListener('DOMContentLoaded', () => {
       'nav.home': 'Home',
       'nav.about': 'About',
       'nav.projects': 'Projects',
+      'nav.skills': 'Skills',
+      'nav.github': 'GitHub',
       'nav.contact': 'Contact',
       'hero.title': "Hi, I'm Akshay",
       'hero.lead': 'Bilingual global professional with an IIT postgraduate background and 4+ years of experience across manufacturing, engineering, and international business operations in Japan.',
@@ -308,6 +293,8 @@ document.addEventListener('DOMContentLoaded', () => {
       'nav.home': 'ホーム',
       'nav.about': '自己紹介',
       'nav.projects': 'プロジェクト',
+      'nav.skills': 'スキル',
+      'nav.github': 'GitHub',
       'nav.contact': '連絡先',
       'hero.title': 'こんにちは、アクシャイです',
       'hero.lead': 'IIT大学院の背景と、日本での製造・エンジニアリング・国際ビジネス分野における4年以上の経験を持つバイリンガル・グローバル・プロフェッショナル。',
@@ -352,6 +339,8 @@ document.addEventListener('DOMContentLoaded', () => {
       'nav.home': 'होम',
       'nav.about': 'मेरे बारे में',
       'nav.projects': 'प्रोजेक्ट्स',
+      'nav.skills': 'कौशल',
+      'nav.github': 'GitHub',
       'nav.contact': 'संपर्क',
       'hero.title': 'नमस्ते, मैं अक्षय हूँ',
       'hero.lead': 'IIT स्नातकोत्तर पृष्ठभूमि और जापान में विनिर्माण, इंजीनियरिंग, और अंतरराष्ट्रीय व्यवसाय में 4+ वर्षों के अनुभव के साथ द्विभाषी वैश्विक पेशेवर।',
@@ -393,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const languageSelect = document.getElementById('language-select');
+  const languageSelect = document.getElementById('dock-language-select');
 
   function translatePage(language) {
     const dictionary = translations[language] || translations.en;
