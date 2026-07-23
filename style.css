@@ -31,8 +31,70 @@
 }
 
 
-html, body {
+html {
   min-height: 100%;
+}
+
+html::before,
+html::after {
+  content: '';
+  position: fixed;
+  pointer-events: none;
+  z-index: -1;
+  inset: auto;
+}
+
+html::before {
+  top: -10%;
+  left: -10%;
+  width: 52vw;
+  height: 48vh;
+  background: radial-gradient(circle at 30% 30%, var(--blob1), transparent 48%);
+  filter: blur(96px);
+  animation: blobFloat1 18s ease-in-out infinite;
+}
+
+html::after {
+  top: -12%;
+  right: -10%;
+  width: 48vw;
+  height: 42vh;
+  background: radial-gradient(circle at 40% 40%, var(--blob2), transparent 45%);
+  filter: blur(92px);
+  animation: blobFloat2 22s ease-in-out infinite;
+}
+
+main::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    radial-gradient(circle at 8% 12%, rgba(99, 102, 241, 0.06) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 28% 35%, rgba(79, 70, 229, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 52% 18%, rgba(99, 102, 241, 0.06) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 72% 42%, rgba(79, 70, 229, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 15% 68%, rgba(99, 102, 241, 0.055) 1.2px, transparent 1.2px),
+    radial-gradient(circle at 65% 72%, rgba(79, 70, 229, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 42% 88%, rgba(99, 102, 241, 0.06) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 88% 62%, rgba(79, 70, 229, 0.055) 1.2px, transparent 1.2px);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0.08;
+  animation: neuralPulse 8s ease-in-out infinite;
+}
+
+@keyframes neuralPulse {
+  0%, 100% { opacity: 0.08; }
+  50% { opacity: 0.14; }
+}
+
+@keyframes neuralLine {
+  0%, 100% { stroke-dashoffset: 1000; opacity: 0.08; }
+  50% { stroke-dashoffset: 0; opacity: 0.12; }
+  100% { stroke-dashoffset: -1000; opacity: 0.08; }
 }
 
 body {
@@ -48,45 +110,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-html::before,
-html::after,
-body::before,
-body::after {
-  content: '';
-  position: fixed;
-  pointer-events: none;
-  z-index: -1;
-}
-
-html::before {
-  inset: auto;
-  top: -10%;
-  left: -10%;
-  width: 52vw;
-  height: 48vh;
-  background: radial-gradient(circle at 30% 30%, var(--blob1), transparent 48%);
-  filter: blur(96px);
-  animation: blobFloat1 18s ease-in-out infinite;
-}
-
-html::after {
-  inset: auto;
-  top: -12%;
-  right: -10%;
-  width: 48vw;
-  height: 42vh;
-  background: radial-gradient(circle at 40% 40%, var(--blob2), transparent 45%);
-  filter: blur(92px);
-  animation: blobFloat2 22s ease-in-out infinite;
-}
-
-body::before {
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.52), transparent 35%, rgba(99, 102, 241, 0.08) 100%);
-  transform: translateX(-15%);
-  opacity: 0.55;
-  animation: backgroundShift 30s ease-in-out infinite alternate;
-}
-
 body::after {
   inset: 0;
   background-image:
@@ -97,6 +120,19 @@ body::after {
   opacity: 0.4;
   transform: scale(1.1);
   animation: particleDrift 42s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body::before {
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.52), transparent 35%, rgba(99, 102, 241, 0.08) 100%);
+  transform: translateX(-15%);
+  opacity: 0.55;
+  animation: backgroundShift 30s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -1;
+  inset: 0;
+  position: fixed;
 }
 
 @keyframes backgroundShift {
@@ -1363,9 +1399,15 @@ h1, h2, h3, h4, h5, h6,
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html::before,
+  html::after,
+  body::before,
+  body::after,
+  main::before,
   .cursor-glow,
   .mouse-card::before,
-  .card-ripple {
+  .card-ripple,
+  .neural-network-svg {
     display: none !important;
     animation: none !important;
   }

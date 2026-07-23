@@ -535,7 +535,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initMouseEffects();
 
-  // Chat widget logic
+  function initNeuralNetwork() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'neural-network-svg');
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+    svg.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.08;
+    `;
+
+    const nodes = [
+      [8, 12], [28, 35], [52, 18], [72, 42],
+      [15, 68], [65, 72], [42, 88], [88, 62]
+    ];
+
+    nodes.forEach(([x, y]) => {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', x);
+      circle.setAttribute('cy', y);
+      circle.setAttribute('r', '1.2');
+      circle.setAttribute('fill', 'rgba(99, 102, 241, 0.8)');
+      svg.appendChild(circle);
+    });
+
+    const lines = [
+      [[8, 12], [28, 35]],
+      [[28, 35], [52, 18]],
+      [[52, 18], [72, 42]],
+      [[72, 42], [88, 62]],
+      [[15, 68], [42, 88]],
+      [[28, 35], [65, 72]],
+      [[52, 18], [42, 88]],
+      [[8, 12], [15, 68]]
+    ];
+
+    lines.forEach(([[x1, y1], [x2, y2]]) => {
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x1);
+      line.setAttribute('y1', y1);
+      line.setAttribute('x2', x2);
+      line.setAttribute('y2', y2);
+      line.setAttribute('stroke', 'rgba(79, 70, 229, 0.6)');
+      line.setAttribute('stroke-width', '0.5');
+      line.setAttribute('stroke-dasharray', '2,1');
+      line.setAttribute('opacity', '0.06');
+      svg.appendChild(line);
+    });
+
+    document.body.appendChild(svg);
+  }
+
+  initNeuralNetwork();
   const chatToggle = document.getElementById('chat-toggle');
   const chatPanel = document.getElementById('chat-panel');
   const chatClose = document.getElementById('chat-close');
