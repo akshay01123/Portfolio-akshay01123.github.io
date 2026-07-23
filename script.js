@@ -1,5 +1,27 @@
 // Minimal site script: menu toggle, smooth scroll
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize theme
+  function initTheme() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const isDarkMode = localStorage.getItem('theme') === 'dark' || 
+                       (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    
+    if (isDarkMode) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+    
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+      });
+    }
+  }
+  
+  initTheme();
+
   // Smooth scroll for internal anchors
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', (e) => {

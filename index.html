@@ -46,6 +46,19 @@
         <option value="hi">हिं</option>
       </select>
     </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
+      <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+    </button>
   </nav>
 
   <main>
@@ -119,11 +132,16 @@
 
     <section id="experience" class="container section-section">
       <h2 data-i18n="experience.title">Experience</h2>
-      <ul class="experience-list">
-        <li>
-          <div class="experience-item">
-            <h3>International Department</h3>
-            <p class="experience-meta">Kuken Industries, Fukuoka · Apr 2024 – Present · 2 yrs 4 mos · On-site</p>
+      <ol class="experience-timeline">
+        <li class="experience-timeline-item">
+          <div class="experience-timeline-dot"></div>
+          <div class="experience-timeline-content">
+            <div class="experience-header">
+              <h3 class="experience-title">International Department</h3>
+              <span class="experience-duration">2 yrs 4 mos</span>
+            </div>
+            <p class="experience-company">Kuken Industries, Fukuoka</p>
+            <p class="experience-period">Apr 2024 – Present · On-site</p>
             <ul class="experience-bullets">
               <li>Managed overseas cooling tower projects by coordinating customers, engineering teams, and production functions to ensure execution aligned with technical and business requirements.</li>
               <li>Supported project decision-making through technical and operational analysis, improving alignment across stakeholders and project outcomes.</li>
@@ -131,10 +149,15 @@
             </ul>
           </div>
         </li>
-        <li>
-          <div class="experience-item">
-            <h3>Technical Department</h3>
-            <p class="experience-meta">Kuken Industries, Fukuoka · Apr 2022 – Mar 2024 · 2 yrs · On-site</p>
+        <li class="experience-timeline-item">
+          <div class="experience-timeline-dot"></div>
+          <div class="experience-timeline-content">
+            <div class="experience-header">
+              <h3 class="experience-title">Technical Department</h3>
+              <span class="experience-duration">2 yrs</span>
+            </div>
+            <p class="experience-company">Kuken Industries, Fukuoka</p>
+            <p class="experience-period">Apr 2022 – Mar 2024 · On-site</p>
             <ul class="experience-bullets">
               <li>Contributed to engineering design and production optimization initiatives to improve efficiency, quality, and execution reliability.</li>
               <li>Delivered component design and supported manufacturing processes through close collaboration with factory and technical teams.</li>
@@ -142,10 +165,15 @@
             </ul>
           </div>
         </li>
-        <li>
-          <div class="experience-item">
-            <h3>Technical Analyst (Remote)</h3>
-            <p class="experience-meta">Contract · May 2021 – Mar 2022 · 11 mos · Ahmedabad, Gujarat, India · Hybrid</p>
+        <li class="experience-timeline-item">
+          <div class="experience-timeline-dot"></div>
+          <div class="experience-timeline-content">
+            <div class="experience-header">
+              <h3 class="experience-title">Technical Analyst (Remote)</h3>
+              <span class="experience-duration">11 mos</span>
+            </div>
+            <p class="experience-company">Contract · Ahmedabad, Gujarat, India</p>
+            <p class="experience-period">May 2021 – Mar 2022 · Hybrid</p>
             <ul class="experience-bullets">
               <li>Conducted market and technical analysis to support engineering and business decision-making for international initiatives.</li>
               <li>Improved data quality, documentation standards, and reporting processes to enhance downstream execution and collaboration.</li>
@@ -153,7 +181,7 @@
             </ul>
           </div>
         </li>
-      </ul>
+      </ol>
     </section>
 
     <section id="skills" class="container section-section">
@@ -288,15 +316,46 @@
 
     <section id="projects" class="container section-section">
       <h2 data-i18n="projects.title">Projects</h2>
-      <div class="projects-grid">
-        <article class="project-card">
-          <h3 data-i18n="projects.card1.title">Portfolio Refresh</h3>
-          <p><a href="https://akshay01123.github.io" target="_blank" rel="noopener noreferrer">https://akshay01123.github.io</a></p>
-          <p data-i18n="projects.card1.text">A clear, responsive personal website to share my story, skills, and contact information.</p>
+      <div class="projects-bento-grid">
+        <article class="bento-card bento-card-featured">
+          <div class="bento-card-header">
+            <h3 data-i18n="projects.card1.title">Portfolio Refresh</h3>
+            <span class="bento-badge featured">Featured</span>
+          </div>
+          <p class="bento-card-description" data-i18n="projects.card1.text">A clear, responsive personal website to share my story, skills, and contact information. Built with modern glassmorphism design, dark/light theme support, and interactive components.</p>
+          <div class="bento-card-footer">
+            <span class="bento-tech">React-less</span>
+            <span class="bento-tech">CSS3</span>
+            <span class="bento-tech">JavaScript</span>
+          </div>
+          <a href="https://akshay01123.github.io" target="_blank" rel="noopener noreferrer" class="bento-link">Visit Website</a>
         </article>
-        <article class="project-card">
-          <h3>Content Generator</h3>
-          <p>AI-driven content generation and automated posting to X (Twitter). Planning to build a pipeline that creates, schedules, and posts content using machine learning APIs.</p>
+        
+        <article class="bento-card bento-card-tall">
+          <div class="bento-card-header">
+            <h3>Content Generator</h3>
+            <span class="bento-badge">In Progress</span>
+          </div>
+          <p class="bento-card-description">AI-driven content generation and automated posting to X (Twitter). Planning to build a pipeline that creates, schedules, and posts content using machine learning APIs.</p>
+          <div class="bento-card-footer">
+            <span class="bento-tech">Python</span>
+            <span class="bento-tech">AI/ML</span>
+            <span class="bento-tech">APIs</span>
+          </div>
+          <button class="bento-button-secondary" disabled>Coming Soon</button>
+        </article>
+
+        <article class="bento-card bento-card-wide">
+          <div class="bento-card-header">
+            <h3>Japaneasy101 - Language Learning</h3>
+            <span class="bento-badge">Active</span>
+          </div>
+          <p class="bento-card-description">Launched a successful Instagram account with 45,000+ followers providing bite-sized Japanese lessons. Focused on simple, practical language content for learners worldwide.</p>
+          <div class="bento-card-stats">
+            <div class="stat"><span class="stat-value">45K+</span><span class="stat-label">Followers</span></div>
+            <div class="stat"><span class="stat-value">Daily</span><span class="stat-label">Posts</span></div>
+          </div>
+          <a href="https://instagram.com/japaneasy101" target="_blank" rel="noopener noreferrer" class="bento-link">Follow on Instagram</a>
         </article>
       </div>
     </section>
