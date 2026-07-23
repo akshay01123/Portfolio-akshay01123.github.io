@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!userResponse.ok) throw new Error('GitHub user request failed');
       const userData = await userResponse.json();
 
-      const reposResponse = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100`);
+      const reposResponse = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100&sort=updated`);
       if (!reposResponse.ok) throw new Error('GitHub repos request failed');
       const reposData = await reposResponse.json();
 
@@ -193,9 +193,65 @@ document.addEventListener('DOMContentLoaded', () => {
       const stars = totalStars || '--';
       const lineText = `Repos: ${repos} · Commits: ${commits} · Followers: ${followers} · Stars: ${stars}`;
       if (statsLine) statsLine.textContent = lineText;
+
+      // Fetch languages and latest repo
+      await fetchGitHubLanguagesAndLatestRepo(reposData);
     } catch (error) {
       console.error('GitHub stats fetch failed:', error);
       if (statsLine) statsLine.textContent = 'GitHub stats unavailable';
+    }
+  }
+
+  async function fetchGitHubLanguagesAndLatestRepo(reposData) {
+    const languagesContainer = document.getElementById('github-languages');
+    const latestRepoContainer = document.getElementById('github-latest-repo');
+
+    if (!languagesContainer || !latestRepoContainer) return;
+
+    try {
+      const languageMap = {};
+      let latestRepo = null;
+      let latestDate = null;
+
+      for (const repo of reposData) {
+        if (repo.language) {
+          languageMap[repo.language] = (languageMap[repo.language] || 0) + 1;
+        }
+
+        const pushedAt = new Date(repo.pushed_at || 0);
+        if (!latestDate || pushedAt > latestDate) {
+          latestDate = pushedAt;
+          latestRepo = repo;
+        }
+      }
+
+      // Display languages
+      if (Object.keys(languageMap).length > 0) {
+        const sortedLanguages = Object.entries(languageMap)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 8);
+
+        languagesContainer.innerHTML = sortedLanguages
+          .map(([lang]) => `<span class="github-language-badge">${lang}</span>`)
+          .join('');
+      } else {
+        languagesContainer.textContent = 'No languages detected.';
+      }
+
+      // Display latest repo
+      if (latestRepo) {
+        const description = latestRepo.description ? `<p>${latestRepo.description}</p>` : '';
+        latestRepoContainer.innerHTML = `
+          <a href="${latestRepo.html_url}" target="_blank" rel="noopener noreferrer">${latestRepo.name}</a>
+          ${description}
+        `;
+      } else {
+        latestRepoContainer.textContent = 'No repositories found.';
+      }
+    } catch (error) {
+      console.error('GitHub languages/latest repo fetch failed:', error);
+      languagesContainer.textContent = 'Languages unavailable';
+      latestRepoContainer.textContent = 'Latest repo unavailable';
     }
   }
 
