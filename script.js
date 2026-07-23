@@ -450,9 +450,26 @@ document.addEventListener('DOMContentLoaded', () => {
     cursorGlow.className = 'cursor-glow';
     document.body.appendChild(cursorGlow);
 
+    const bgReact = document.createElement('div');
+    bgReact.className = 'bg-cursor-react';
+    document.body.insertBefore(bgReact, document.body.firstChild);
+
+    let mouseX = 0;
+    let mouseY = 0;
+
     window.addEventListener('mousemove', (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+
       cursorGlow.classList.add('active');
-      cursorGlow.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
+      cursorGlow.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+
+      bgReact.style.setProperty('--cursor-x', `${mouseX}px`);
+      bgReact.style.setProperty('--cursor-y', `${mouseY}px`);
+      bgReact.style.setProperty('--cursor-x-percent', `${(mouseX / window.innerWidth) * 100}%`);
+      bgReact.style.setProperty('--cursor-y-percent', `${(mouseY / window.innerHeight) * 100}%`);
+
+      bgReact.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
     });
 
     window.addEventListener('mouseleave', () => {
