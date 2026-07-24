@@ -1768,6 +1768,47 @@ html[data-theme="dark"] body::before {
 html[data-theme="dark"] body::after {
   opacity: 0.28;
 }
+
+html[data-theme="dark"] body::after {
+  background-image:
+    radial-gradient(circle, rgba(99, 102, 241, 0.16) 0%, transparent 16%),
+    radial-gradient(circle, rgba(34, 211, 238, 0.12) 0%, transparent 24%),
+    radial-gradient(circle, var(--overlay-particles) 0%, transparent 14%);
+}
+
+html[data-theme="dark"] .site-header {
+  border-bottom: 1px solid var(--border);
+}
+
+html[data-theme="dark"] .btn {
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .nav-list a {
+  background: var(--surface-glass);
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+html[data-theme="dark"] .nav-list a:hover {
+  background: var(--surface-glass-hover);
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+html[data-theme="dark"] .social-icons a {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+}
+
+html[data-theme="dark"] .social-icons a:hover {
+  background: var(--surface-glass-hover);
+}
+
+html[data-theme="dark"] .chat-badge {
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid var(--border);
+}
 .hidden {
   display: none !important;
 }
