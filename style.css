@@ -761,6 +761,35 @@ h1, h2, h3, h4, h5, h6,
   box-shadow: 0 16px 32px rgba(79, 70, 229, 0.38);
 }
 
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: none;
+}
+
+.btn-outline:hover {
+  background: var(--accent-light);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.2);
+}
+
+html[data-theme="dark"] .btn-outline {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: transparent;
+}
+
+html[data-theme="dark"] .btn-outline:hover {
+  background: var(--accent-light);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
 .hero-sidebar {
   display: grid;
   gap: 16px;
