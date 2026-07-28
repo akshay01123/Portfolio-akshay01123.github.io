@@ -181,6 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const totalStars = reposData.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
 
       let commits = '--';
+      let commitsThisMonth = '--';
       try {
         const commitResponse = await fetch(`https://api.github.com/search/commits?q=author:${githubUsername}`, {
           headers: { Accept: 'application/vnd.github.cloak-preview' }
@@ -189,14 +190,33 @@ document.addEventListener('DOMContentLoaded', () => {
           const commitData = await commitResponse.json();
           commits = commitData.total_count || 0;
         }
+
+        // Calculate commits for the current month
+        const now = new Date();
+        const year = now.getUTCFullYear();
+        const month = String(now.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(now.getUTCDate()).padStart(2, '0');
+        const monthStart = `${year}-${month}-01`;
+        const today = `${year}-${month}-${day}`;
+
+        const monthQuery = `author:${githubUsername} committer-date:${monthStart}..${today}`;
+        const monthResponse = await fetch(`https://api.github.com/search/commits?q=${encodeURIComponent(monthQuery)}`, {
+          headers: { Accept: 'application/vnd.github.cloak-preview' }
+        });
+        if (monthResponse.ok) {
+          const monthData = await monthResponse.json();
+          commitsThisMonth = monthData.total_count || 0;
+        }
       } catch (commitError) {
-        commits = '--';
+        commits = commits === '--' ? '--' : commits;
+        commitsThisMonth = commitsThisMonth === '--' ? '--' : commitsThisMonth;
       }
 
       const repos = userData.public_repos || reposData.length || '--';
       const followers = userData.followers || '--';
       const stars = totalStars || '--';
-      const lineText = `Repos: ${repos} · Commits: ${commits} · Followers: ${followers} · Stars: ${stars}`;
+      const commitMonthText = (commits !== '--' && commitsThisMonth !== '--') ? `${commits} (+${commitsThisMonth} this month)` : commits;
+      const lineText = `Repos: ${repos} · Commits: ${commitMonthText} · Followers: ${followers} · Stars: ${stars}`;
       if (statsLine) statsLine.textContent = lineText;
 
       // Fetch languages and latest repo
