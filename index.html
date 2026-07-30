@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Akshay — Portfolio</title>
+  <style>html.disable-transitions *{transition:none!important}</style>
+  <script>/* Prevent FOUC & set theme before render */(function(){document.documentElement.classList.add('disable-transitions');var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}else if(t==='light'){document.documentElement.setAttribute('data-theme','light');}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}window.addEventListener('DOMContentLoaded',function(){document.documentElement.classList.remove('disable-transitions');});})();</script>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
