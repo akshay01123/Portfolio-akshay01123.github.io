@@ -5,7 +5,39 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Akshay — Portfolio</title>
   <style>html.disable-transitions *{transition:none!important}</style>
-  <script>/* Prevent FOUC & set theme before render */(function(){document.documentElement.classList.add('disable-transitions');var t=localStorage.getItem('theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}else if(t==='light'){document.documentElement.setAttribute('data-theme','light');}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}window.addEventListener('DOMContentLoaded',function(){document.documentElement.classList.remove('disable-transitions');});})();</script>
+  <script>
+  /* Prevent FOUC & set theme before render */
+  (function(){
+    document.documentElement.classList.add('disable-transitions');
+    var t = localStorage.getItem('theme');
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var theme = t === 'dark' || (!t && prefersDark) ? 'dark' : (t === 'light' ? 'light' : 'light');
+
+    if(theme === 'dark'){
+      document.documentElement.setAttribute('data-theme','dark');
+      // immediate inline fallback colors to avoid flash before CSS loads
+      document.documentElement.style.background = '#0f1419';
+      document.documentElement.style.color = '#f3f4f6';
+      if(document.body) { document.body.style.background = '#0f1419'; document.body.style.color = '#f3f4f6'; }
+    } else {
+      document.documentElement.setAttribute('data-theme','light');
+      document.documentElement.style.background = '#f5f7fa';
+      document.documentElement.style.color = '#1f2937';
+      if(document.body) { document.body.style.background = '#f5f7fa'; document.body.style.color = '#1f2937'; }
+    }
+
+    window.addEventListener('DOMContentLoaded',function(){
+      // remove transition-block once DOM ready so stylesheet transitions behave normally
+      document.documentElement.classList.remove('disable-transitions');
+      // clear inline fallback styles after stylesheet applies to allow theme variables to take over
+      setTimeout(function(){
+        document.documentElement.style.background = '';
+        document.documentElement.style.color = '';
+        if(document.body) { document.body.style.background = ''; document.body.style.color = ''; }
+      }, 50);
+    });
+  })();
+  </script>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
