@@ -26,15 +26,16 @@
       if(document.body) { document.body.style.background = '#f5f7fa'; document.body.style.color = '#1f2937'; }
     }
 
-    window.addEventListener('DOMContentLoaded',function(){
-      // remove transition-block once DOM ready so stylesheet transitions behave normally
+    // Wait for full window load (ensures CSS is loaded) before removing fallbacks
+    window.addEventListener('load', function(){
+      // remove transition-block so stylesheet transitions behave normally
       document.documentElement.classList.remove('disable-transitions');
       // clear inline fallback styles after stylesheet applies to allow theme variables to take over
       setTimeout(function(){
         document.documentElement.style.background = '';
         document.documentElement.style.color = '';
         if(document.body) { document.body.style.background = ''; document.body.style.color = ''; }
-      }, 50);
+      }, 120);
     });
   })();
   </script>
