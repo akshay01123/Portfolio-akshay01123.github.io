@@ -398,6 +398,26 @@ textarea,
   transform: translateX(-30px);
 }
 
+/* Ensure hero area respects dark theme variables — force light text where needed */
+html[data-theme="dark"] .hero,
+html[data-theme="dark"] .hero-copy,
+html[data-theme="dark"] .hero h1,
+html[data-theme="dark"] .typewriter-wrapper,
+html[data-theme="dark"] .typewriter-cursor,
+html[data-theme="dark"] .lead,
+html[data-theme="dark"] .hero-actions,
+html[data-theme="dark"] .hero-actions .btn,
+html[data-theme="dark"] .hero-actions .btn-outline {
+  color: var(--text) !important;
+}
+
+/* Make sure hero cards and small text are also readable in dark */
+html[data-theme="dark"] .hero-card,
+html[data-theme="dark"] .hero-card p,
+html[data-theme="dark"] .hero-card strong {
+  color: var(--text) !important;
+}
+
 .revealed {
   opacity: 1;
   transform: translateX(0) translateY(0);
