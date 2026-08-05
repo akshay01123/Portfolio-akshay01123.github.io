@@ -2168,6 +2168,49 @@ html[data-theme="dark"] .chat-badge {
   }
 }
 
+/* Broad dark-mode text coverage: force most textual elements to use the theme text color
+   while preserving accent links and button colors. This prevents any leftover hard-coded
+   light text from appearing on dark backgrounds. */
+html[data-theme="dark"] body,
+html[data-theme="dark"] body h1,
+html[data-theme="dark"] body h2,
+html[data-theme="dark"] body h3,
+html[data-theme="dark"] body h4,
+html[data-theme="dark"] body h5,
+html[data-theme="dark"] body h6,
+html[data-theme="dark"] body p,
+html[data-theme="dark"] body li,
+html[data-theme="dark"] body dt,
+html[data-theme="dark"] body dd,
+html[data-theme="dark"] body label,
+html[data-theme="dark"] body span,
+html[data-theme="dark"] body strong,
+html[data-theme="dark"] body em {
+  color: var(--text) !important;
+}
+
+/* Preserve anchor and accent colors in dark mode */
+html[data-theme="dark"] a,
+html[data-theme="dark"] .bento-link {
+  color: var(--accent) !important;
+}
+
+/* Preserve button text and accent outlines */
+html[data-theme="dark"] .btn {
+  color: #fff !important;
+}
+html[data-theme="dark"] .btn-outline {
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+
+/* Ensure the typewriter cursor and highlighted small elements keep their accent color */
+html[data-theme="dark"] .typewriter-cursor,
+html[data-theme="dark"] .badge,
+html[data-theme="dark"] .bento-badge {
+  color: var(--accent) !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html::before,
   html::after,
