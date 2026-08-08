@@ -296,6 +296,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   fetchGitHubCounts();
   fetchGitHubContributionStats();
+  initProjectFilters();
+
+  function initProjectFilters() {
+    const buttons = document.querySelectorAll('.project-filter-btn');
+    const cards = document.querySelectorAll('.projects-bento-grid article.bento-card');
+    if (!buttons.length || !cards.length) return;
+
+    function applyFilter(filter) {
+      cards.forEach(card => {
+        const cats = (card.dataset.category || '').split(/\s+/).filter(Boolean);
+        if (filter === 'all' || cats.includes(filter)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilter(btn.dataset.filter || 'all');
+      });
+    });
+    // initialize
+    applyFilter(document.querySelector('.project-filter-btn.active')?.dataset.filter || 'all');
+  }
 
   const translations = {
     en: {

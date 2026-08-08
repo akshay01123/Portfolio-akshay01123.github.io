@@ -2211,6 +2211,29 @@ html[data-theme="dark"] .bento-badge {
   color: var(--accent) !important;
 }
 
+/* Project filter styles */
+.project-filters {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin: 12px 0 18px 0;
+}
+.project-filter-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.project-filter-btn.active,
+.project-filter-btn:hover {
+  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  color: #fff;
+  border-color: transparent;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html::before,
   html::after,
