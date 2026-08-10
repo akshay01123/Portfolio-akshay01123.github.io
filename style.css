@@ -2298,6 +2298,48 @@ html[data-theme="dark"] .bento-badge {
   padding:4px 8px;
 }
 
+/* Course progress styles */
+.course-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.course-progress .course-summary {
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+.progress-wrapper {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.progress-track {
+  flex:1;
+  height: 14px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-fill {
+  height:100%;
+  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  width:0%;
+  transition: width 700ms ease;
+}
+.progress-text {
+  min-width:44px;
+  font-weight:700;
+}
+.course-modules ol {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+@media (max-width: 800px) {
+  .course-grid { grid-template-columns: 1fr; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html::before,
   html::after,

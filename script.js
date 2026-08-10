@@ -336,6 +336,24 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFilter(document.querySelector('.project-filter-btn.active')?.dataset.filter || 'all');
   }
 
+  // Load course progress from stats/course_progress.json (fallback to 31%)
+  (function loadCourseProgress(){
+    const bar = document.getElementById('course-progress-bar');
+    const text = document.getElementById('course-progress-text');
+    if(!bar || !text) return;
+    fetch('/stats/course_progress.json').then(r=>{
+      if(!r.ok) throw new Error('no progress file');
+      return r.json();
+    }).then(data=>{
+      const pct = Number(data.completed) || 0;
+      bar.style.width = Math.max(0, Math.min(100, pct)) + '%';
+      text.textContent = Math.round(pct) + '%';
+    }).catch(()=>{
+      bar.style.width = '31%';
+      text.textContent = '31%';
+    });
+  })();
+
   const translations = {
     en: {
       title: 'Akshay — Portfolio',
