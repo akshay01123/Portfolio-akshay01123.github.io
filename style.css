@@ -2331,6 +2331,32 @@ html[data-theme="dark"] .bento-badge {
   min-width:44px;
   font-weight:700;
 }
+.course-circle-wrap {
+  display:inline-block;
+  margin-bottom: 12px;
+}
+.course-circle {
+  display:block;
+}
+.circle-track {
+  stroke: rgba(0,0,0,0.08);
+}
+.circle-progress {
+  stroke: #16a34a; /* green */
+  stroke-dasharray: 326.7256; /* 2*pi*r (r=52) */
+  stroke-dashoffset: 326.7256;
+  transition: stroke-dashoffset 900ms ease;
+}
+.course-circle-text {
+  font-size: 18px;
+  font-weight: 800;
+  fill: #ffffff;
+}
+
+/* reduce circle size on small screens */
+@media (max-width: 640px) {
+  .course-circle { width: 88px; height: 88px; }
+}
 .course-modules ol {
   margin: 0;
   padding-left: 1.1rem;
