@@ -155,9 +155,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const contributions = Array.isArray(data.contributions) ? data.contributions : [];
       const { current, longest } = calculateStreaks(contributions);
 
-      if (streakLine) {
-        streakLine.textContent = `[Current Streak: ${current} day${current === 1 ? '' : 's'} | Longest Streak: ${longest} day${longest === 1 ? '' : 's'}]`;
-      }
+        // Count how many days in the last 30 days had at least one commit
+        const activeDatesSet = new Set(contributions.filter(item => Number(item.count) > 0 && item.date).map(item => item.date));
+        const todayUtc = new Date();
+        todayUtc.setUTCHours(0,0,0,0);
+        const startUtc = new Date(todayUtc);
+        startUtc.setUTCDate(startUtc.getUTCDate() - 29); // last 30 days inclusive
+        let activeLast30 = 0;
+        for (let d = new Date(startUtc); d <= todayUtc; d.setUTCDate(d.getUTCDate() + 1)) {
+          if (activeDatesSet.has(formatUtcDate(d))) activeLast30++;
+        }
+
+        if (streakLine) {
+          streakLine.textContent = `[Current Streak: ${current} day${current === 1 ? '' : 's'} | Longest Streak: ${longest} day${longest === 1 ? '' : 's'}] · Active days (30d): ${activeLast30}`;
+        }
     } catch (error) {
       console.error('GitHub streak fetch failed:', error);
       if (streakLine) {
