@@ -188,6 +188,39 @@ body::before {
   position: fixed;
 }
 
+/* Dark-mode overrides for body background and overlays to avoid white side panels */
+html[data-theme="dark"] body {
+  background: radial-gradient(circle at 14% 8%, var(--bg-layer1), transparent 34%),
+    radial-gradient(circle at 86% 14%, var(--bg-layer2), transparent 30%),
+    radial-gradient(circle at 50% 96%, var(--bg-rose), transparent 36%),
+    linear-gradient(180deg, rgba(8,10,14,0.6) 0%, var(--bg) 48%, rgba(6,8,12,0.6) 100%);
+}
+
+html[data-theme="dark"] body::after {
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(0, 0, 0, 0.12) 0%, transparent 16%),
+    radial-gradient(circle, rgba(0, 0, 0, 0.08) 0%, transparent 24%),
+    radial-gradient(circle, var(--overlay-particles) 0%, transparent 14%);
+  background-size: 14rem 14rem, 20rem 20rem, 30rem 30rem;
+  opacity: 0.45;
+  transform: scale(1.1);
+  animation: particleDrift 42s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+html[data-theme="dark"] body::before {
+  background: linear-gradient(140deg, rgba(0,0,0,0.48), transparent 35%, rgba(59,130,246,0.02) 100%);
+  transform: translateX(-15%);
+  opacity: 0.5;
+  animation: backgroundShift 30s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -1;
+  inset: 0;
+  position: fixed;
+}
+
 @keyframes backgroundShift {
   from { transform: translateX(-15%) scale(1.05); }
   to { transform: translateX(15%) scale(1.05); }
