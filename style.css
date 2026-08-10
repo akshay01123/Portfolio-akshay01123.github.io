@@ -2234,6 +2234,37 @@ html[data-theme="dark"] .bento-badge {
   border-color: transparent;
 }
 
+/* Compact project cards */
+.bento-card.compact {
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+.bento-card.compact .bento-card-header h3 {
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+.bento-card.compact .bento-card-description {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+.bento-card.compact .bento-card-footer {
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.bento-card.compact .bento-tech {
+  font-size: 0.75rem;
+  padding:4px 8px;
+  border-radius:999px;
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+}
+.bento-card.compact .bento-badge {
+  font-size: 0.7rem;
+  padding:4px 8px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html::before,
   html::after,
