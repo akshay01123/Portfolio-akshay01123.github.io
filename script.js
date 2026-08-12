@@ -340,8 +340,6 @@ document.addEventListener('DOMContentLoaded', () => {
   (function loadCourseProgress(){
     const bar = document.getElementById('course-progress-bar');
     const text = document.getElementById('course-progress-text');
-    const circle = document.getElementById('course-circle-progress');
-    const circleText = document.getElementById('course-circle-text');
     if(!bar || !text) return;
     fetch('/stats/course_progress.json').then(r=>{
       if(!r.ok) throw new Error('no progress file');
@@ -350,21 +348,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const pct = Number(data.completed) || 0;
       bar.style.width = Math.max(0, Math.min(100, pct)) + '%';
       text.textContent = Math.round(pct) + '%';
-      // update circle if present
-      if(circle){
-        const r = 52; // matches SVG r
-        const circumference = 2 * Math.PI * r;
-        const clamped = Math.max(0, Math.min(100, pct));
-        const offset = circumference * (1 - clamped/100);
-        circle.style.strokeDasharray = circumference;
-        circle.style.strokeDashoffset = offset;
-      }
-      if(circleText){ circleText.textContent = Math.round(pct) + '%'; }
+      // update linear progress and text
     }).catch(()=>{
       bar.style.width = '31%';
       text.textContent = '31%';
-      if(circle){ circle.style.strokeDashoffset = 326.7256; }
-      if(circleText){ circleText.textContent = '31%'; }
+      // fallback: set linear bar and text
     });
   })();
 
