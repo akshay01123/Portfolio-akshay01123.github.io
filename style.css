@@ -919,6 +919,7 @@ html[data-theme="dark"] .btn-outline:hover {
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  height: 100%;
 }
 
 .bento-card::before {
@@ -992,11 +993,15 @@ html[data-theme="dark"] .btn-outline:hover {
 }
 
 .bento-card-description {
-  flex: 1;
+  flex: 1 1 auto;
   color: var(--text-secondary);
   font-size: 0.95rem;
-  line-height: 1.6;
+  line-height: 1.5;
   margin: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 }
 
 .bento-card-footer {
@@ -1086,7 +1091,7 @@ html[data-theme="dark"] .btn-outline:hover {
   }
   
   .bento-card {
-    min-height: 300px;
+    min-height: 220px;
   }
   
   .bento-card-featured,
