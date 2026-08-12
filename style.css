@@ -2342,8 +2342,11 @@ html[data-theme="dark"] .bento-badge {
 .course-progress .course-summary { margin-bottom:6px; font-size:0.95rem; }
 .progress-wrapper.compact { gap:8px; }
 .progress-track { height:10px; border-radius:999px; }
-.course-modules { font-size:0.95rem; max-height:220px; overflow:auto; padding-right:8px; }
-@media (max-width: 800px) { .course-modules { max-height:none; } }
+/* shorten progress bar visually within course card */
+.course-progress .progress-track { max-width: 260px; }
+.course-modules { font-size:0.95rem; padding-right:8px; }
+.course-modules ol { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:8px; margin:0; padding-left:1rem; }
+@media (max-width: 800px) { .course-modules ol { grid-template-columns: 1fr; } }
 .course-modules ol {
   margin: 0;
   padding-left: 1.1rem;
