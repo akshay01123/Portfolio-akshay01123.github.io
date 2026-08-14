@@ -1107,7 +1107,9 @@ html[data-theme="dark"] .btn-outline:hover {
 }
 
 .detail-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Use a single column so about text fills the card fully */
+  grid-template-columns: 1fr;
+  gap: 18px;
 }
 
 .detail-grid h3 {
