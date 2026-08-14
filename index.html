@@ -114,10 +114,7 @@
             Download CV
           </a>
         </div>
-        <div class="ai-snapshot" aria-hidden="false">
-          <div class="ai-stack">Python · PyTorch · Transformers · FastAPI · Docker</div>
-          <div class="ai-metrics">Projects: 5 · Course: <span id="ai-course-pct">31%</span></div>
-        </div>
+        <!-- AI Snapshot removed; project modal added below -->
       </div>
       <aside class="hero-sidebar">
         <div class="hero-card">
@@ -525,6 +522,21 @@
         </a>
       </div>
     </section>
+
+    <!-- Project Modal (inserted near end of body) -->
+    <div id="project-modal" class="modal" aria-hidden="true">
+      <div class="modal-overlay" data-action="close"></div>
+      <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="modal-close" data-action="close" aria-label="Close">×</button>
+        <h3 id="modal-title">Project Title</h3>
+        <p id="modal-desc">Project description</p>
+        <div id="modal-techs" class="modal-techs"></div>
+        <div class="modal-actions">
+          <a id="modal-github" class="btn" href="#" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+          <a id="modal-demo" class="btn btn-outline" href="#" target="_blank" rel="noopener noreferrer">View Demo</a>
+        </div>
+      </div>
+    </div>
 
     <section id="contact" class="container section-section">
       <h2 data-i18n="contact.title">Contact</h2>

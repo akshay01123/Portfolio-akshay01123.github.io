@@ -356,6 +356,62 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
+  // Project modal logic
+  (function initProjectModal(){
+    const modal = document.getElementById('project-modal');
+    if(!modal) return;
+    const panel = modal.querySelector('.modal-panel');
+    const titleEl = document.getElementById('modal-title');
+    const descEl = document.getElementById('modal-desc');
+    const techsEl = document.getElementById('modal-techs');
+    const githubEl = document.getElementById('modal-github');
+    const demoEl = document.getElementById('modal-demo');
+
+    function openModal(card){
+      const title = card.querySelector('.bento-card-header h3')?.innerText || '';
+      const desc = card.querySelector('.bento-card-description')?.innerText || '';
+      const techNodes = Array.from(card.querySelectorAll('.bento-tech'));
+      const linkNode = card.querySelector('.bento-link');
+      const href = linkNode?.href || '#';
+      titleEl.textContent = title;
+      descEl.textContent = desc;
+      techsEl.innerHTML = '';
+      techNodes.forEach(t=>{
+        const s = document.createElement('span');
+        s.className = 'bento-tech';
+        s.textContent = t.innerText;
+        techsEl.appendChild(s);
+      });
+      githubEl.href = href;
+      // If demo link is encoded as data-demo on card, use it
+      const demoHref = card.dataset.demo || '';
+      if(demoHref){ demoEl.href = demoHref; demoEl.style.display = ''; } else { demoEl.style.display = 'none'; }
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      panel.focus && panel.focus();
+    }
+
+    function closeModal(){
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+
+    modal.addEventListener('click', (e)=>{
+      if(e.target.dataset.action === 'close' || e.target.classList.contains('modal-overlay')) closeModal();
+    });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+    // attach click listeners to project cards
+    const projectCards = document.querySelectorAll('.projects-bento-grid .bento-card');
+    projectCards.forEach(card=>{
+      card.addEventListener('click', (e)=>{
+        // ignore clicks on links inside the card
+        if(e.target.closest('a')) return;
+        openModal(card);
+      });
+    });
+  })();
+
   const translations = {
     en: {
       title: 'Akshay — Portfolio',

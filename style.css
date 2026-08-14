@@ -2275,33 +2275,18 @@ html[data-theme="dark"] .bento-badge {
 }
 
 /* AI Snapshot under hero */
-.ai-snapshot {
-  display:flex;
-  gap:12px;
-  align-items:center;
-  margin-top:14px;
-  flex-wrap:wrap;
-}
-.ai-snapshot .ai-stack {
-  background: rgba(99,102,241,0.08);
-  color: var(--text-heading);
-  padding:6px 10px;
-  border-radius:999px;
-  font-weight:600;
-  font-size:0.95rem;
-}
-.ai-snapshot .ai-metrics {
-  color: var(--text-muted);
-  font-weight:700;
-  font-size:0.95rem;
-  padding:6px 10px;
-  border-radius:999px;
-  background: transparent;
-}
-
-@media (max-width:640px) {
-  .ai-snapshot { flex-direction:column; align-items:flex-start; gap:8px; }
-}
+/* Project modal */
+.modal { display:none; position: fixed; inset: 0; z-index: 2000; }
+.modal[aria-hidden="false"] { display: block; }
+.modal-overlay { position: absolute; inset: 0; background: rgba(2,6,23,0.6); backdrop-filter: blur(4px); }
+.modal-panel { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(720px, 94vw); background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: var(--shadow-lg); color: var(--text); }
+.modal-close { position: absolute; right: 12px; top: 10px; background: transparent; border: none; font-size: 20px; cursor: pointer; color: var(--text-muted); }
+.modal h3 { margin-top: 0; font-size: 1.25rem; }
+.modal-desc { color: var(--text-secondary); }
+.modal-techs { margin: 12px 0; display:flex; gap:8px; flex-wrap:wrap; }
+.modal-techs .bento-tech { padding:6px 10px; font-size:0.85rem; }
+.modal-actions { display:flex; gap:8px; margin-top: 8px; }
+@media (max-width:640px) { .modal-panel { width: 96vw; padding: 14px; } }
 
 /* Compact project cards */
 .bento-card.compact {
