@@ -2272,6 +2272,35 @@ html[data-theme="dark"] .bento-badge {
   border-color: transparent;
 }
 
+/* AI Snapshot under hero */
+.ai-snapshot {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-top:14px;
+  flex-wrap:wrap;
+}
+.ai-snapshot .ai-stack {
+  background: rgba(99,102,241,0.08);
+  color: var(--text-heading);
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:600;
+  font-size:0.95rem;
+}
+.ai-snapshot .ai-metrics {
+  color: var(--text-muted);
+  font-weight:700;
+  font-size:0.95rem;
+  padding:6px 10px;
+  border-radius:999px;
+  background: transparent;
+}
+
+@media (max-width:640px) {
+  .ai-snapshot { flex-direction:column; align-items:flex-start; gap:8px; }
+}
+
 /* Compact project cards */
 .bento-card.compact {
   padding: 12px 14px;
