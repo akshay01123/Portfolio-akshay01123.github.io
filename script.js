@@ -408,8 +408,50 @@ document.addEventListener('DOMContentLoaded', () => {
         // ignore clicks on links inside the card
         if(e.target.closest('a')) return;
         openModal(card);
+        // analytics
+        if(window.plausible && title) window.plausible('Project Click', { props: { project: title } });
       });
     });
+  })();
+
+  // Analytics: conditional Plausible loader + click tracking
+  (function initAnalytics(){
+    try{
+      const cfg = window.analyticsConfig || {};
+      if(!cfg.provider || cfg.provider !== 'plausible' || !cfg.domain) return;
+
+      // inject Plausible script
+      if(!document.querySelector('script[data-plausible]')){
+        const s = document.createElement('script');
+        s.setAttribute('async',''); s.setAttribute('defer','');
+        s.setAttribute('data-plausible','');
+        s.setAttribute('data-domain', cfg.domain);
+        s.src = 'https://plausible.io/js/plausible.js';
+        document.head.appendChild(s);
+      }
+
+      function plausibleEvent(name, props){
+        if(window.plausible) window.plausible(name, { props: props || {} });
+      }
+
+      // Track project card clicks (use title)
+      document.querySelectorAll('.projects-bento-grid .bento-card').forEach(card=>{
+        card.addEventListener('click', (e)=>{
+          if(e.target.closest('a')) return; // ignore link clicks
+          const title = card.querySelector('.bento-card-header h3')?.innerText || 'unknown';
+          plausibleEvent('project_click', { project: title });
+        });
+      });
+
+      // Track CTAs in hero and project links
+      document.querySelectorAll('.hero-actions .btn, .bento-link, .bento-button-secondary').forEach(el=>{
+        el.addEventListener('click', (e)=>{
+          const label = el.innerText.trim().slice(0,40) || el.getAttribute('aria-label') || 'cta';
+          plausibleEvent('cta_click', { label: label });
+        });
+      });
+
+    }catch(err){ console.warn('Analytics init failed', err); }
   })();
 
   const translations = {
