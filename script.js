@@ -382,6 +382,66 @@ document.addEventListener('DOMContentLoaded', () => {
       container.appendChild(day);
     });
   }
+
+  // Initialize project thumbnails: lazy-load images and add hover overlay
+  function initProjectThumbnails() {
+    const thumbs = document.querySelectorAll('.bento-thumb');
+    if (!thumbs || thumbs.length === 0) return;
+
+    thumbs.forEach(thumb => {
+      const card = thumb.closest('.bento-card');
+      const src = card?.dataset?.thumb || '';
+      // create overlay from card techs + link
+      const overlay = document.createElement('div');
+      overlay.className = 'bento-thumb-overlay';
+
+      const techsWrap = document.createElement('div');
+      techsWrap.className = 'thumb-techs';
+      card.querySelectorAll('.bento-tech').forEach(t => {
+        const clone = t.cloneNode(true);
+        clone.className = 'thumb-tech';
+        techsWrap.appendChild(clone);
+      });
+      overlay.appendChild(techsWrap);
+
+      const link = card.querySelector('.bento-link');
+      if (link) {
+        const cta = link.cloneNode(true);
+        cta.className = 'thumb-cta';
+        overlay.appendChild(cta);
+      }
+
+      thumb.appendChild(overlay);
+
+      if (!src) {
+        thumb.classList.add('empty');
+        const title = card.querySelector('.bento-card-header h3')?.innerText || '';
+        thumb.textContent = title.split(' ').slice(0,2).join(' ');
+        return;
+      }
+    });
+
+    // lazy-load using IntersectionObserver
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const card = el.closest('.bento-card');
+        const src = card?.dataset?.thumb;
+        if (src) {
+          // set background image
+          el.style.backgroundImage = `url('${src}')`;
+          el.classList.add('loaded');
+          card.classList.add('thumb-loaded');
+        }
+        obs.unobserve(el);
+      });
+    }, { rootMargin: '200px 0px' });
+
+    document.querySelectorAll('.bento-thumb:not(.empty)').forEach(t => io.observe(t));
+  }
+
+  initProjectThumbnails();
   fetchGitHubContributionStats();
   initProjectFilters();
 
