@@ -451,6 +451,14 @@ html[data-theme="dark"] .hero-card strong {
   color: var(--text) !important;
 }
 
+/* Give the hero a dark glass surface in night mode to match other sections */
+html[data-theme="dark"] .hero {
+  background: var(--surface-glass);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px 20px;
+}
+
 .revealed {
   opacity: 1;
   transform: translateX(0) translateY(0);
