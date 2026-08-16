@@ -469,6 +469,42 @@ a {
   text-decoration: none;
 }
 
+/* Top shortcut bar (quick links) */
+.top-shortcuts {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 12px;
+  margin: 12px 0 0 0;
+}
+
+.top-shortcuts a {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--surface-glass);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.top-shortcuts a:hover,
+.top-shortcuts a:focus {
+  transform: translateY(-3px);
+  background: var(--surface-glass-hover);
+  border-color: var(--accent);
+  color: var(--text-heading);
+  outline: none;
+}
+
+@media (max-width: 640px) {
+  .top-shortcuts { flex-wrap: wrap; gap: 8px; }
+  .top-shortcuts a { padding: 8px 10px; font-size: 0.85rem; }
+}
+
 a:hover {
   text-decoration: underline;
 }
