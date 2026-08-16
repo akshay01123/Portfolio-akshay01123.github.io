@@ -1675,6 +1675,68 @@ html[data-theme="dark"] .btn-outline:hover {
   margin-top: 24px;
 }
 
+/* Contributions grid: small square dots with hover tooltip */
+.github-graph-wrapper {
+  position: relative;
+  padding: 18px;
+}
+
+.github-contrib-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 12px);
+  grid-auto-columns: 12px;
+  gap: 6px;
+  align-items: center;
+  justify-content: start;
+  padding: 6px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.contrib-day {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: var(--contrib-0, #ebedf0);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.02);
+  cursor: default;
+}
+
+.contrib-day[role="button"] { cursor: pointer; }
+
+.contrib-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--surface-elevated);
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow-sm);
+  transform: translate(-50%, -120%);
+  white-space: nowrap;
+  z-index: 1200;
+  display: none;
+}
+
+/* Contribution color ramp (light/dark aware) */
+:root {
+  --contrib-0: #ebedf0;
+  --contrib-1: #9be9a8;
+  --contrib-2: #40c463;
+  --contrib-3: #30a14e;
+  --contrib-4: #216e39;
+}
+
+html[data-theme="dark"] {
+  --contrib-0: #0f1720;
+  --contrib-1: #134e4a;
+  --contrib-2: #166534;
+  --contrib-3: #159e4a;
+  --contrib-4: #10b981;
+}
+
 .github-stats-line {
   margin: 18px 0 0;
   color: var(--text);

@@ -155,6 +155,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const contributions = Array.isArray(data.contributions) ? data.contributions : [];
       const { current, longest } = calculateStreaks(contributions);
 
+      // Render an accessible contribution grid with hover tooltips showing counts
+      try {
+        renderContribGrid(contributions);
+      } catch (err) {
+        console.warn('renderContribGrid failed', err);
+      }
+
         // Count how many days in the last 30 days had at least one commit
         const activeDatesSet = new Set(contributions.filter(item => Number(item.count) > 0 && item.date).map(item => item.date));
         const todayUtc = new Date();
@@ -306,6 +313,75 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   fetchGitHubCounts();
+  
+  // Render contribution grid with per-day hover tooltips
+  function renderContribGrid(contributions) {
+    const container = document.getElementById('github-contrib-grid');
+    const tooltip = document.getElementById('contrib-tooltip');
+    if (!container) return;
+
+    container.innerHTML = '';
+    container.setAttribute('aria-hidden', 'false');
+
+    const wrapper = container.parentElement || document.body;
+
+    function positionTooltipFromEvent(ev) {
+      if (!tooltip) return;
+      const wrapRect = wrapper.getBoundingClientRect();
+      const left = ev.clientX - wrapRect.left;
+      const top = ev.clientY - wrapRect.top;
+      tooltip.style.left = (left) + 'px';
+      tooltip.style.top = (top - 14) + 'px';
+    }
+
+    contributions.forEach(item => {
+      const count = Number(item.count) || 0;
+      const date = item.date || '';
+      const day = document.createElement('div');
+      day.className = 'contrib-day';
+      day.dataset.count = String(count);
+      day.dataset.date = date;
+      day.tabIndex = 0;
+      day.setAttribute('role', 'button');
+      day.setAttribute('aria-label', `${count} commit${count === 1 ? '' : 's'} on ${date}`);
+
+      const level = count === 0 ? 0 : (count >= 8 ? 4 : (count >= 5 ? 3 : (count >= 3 ? 2 : 1)));
+      day.style.background = `var(--contrib-${level})`;
+
+      day.addEventListener('mouseenter', (e) => {
+        if (!tooltip) return;
+        tooltip.textContent = `${count} commit${count === 1 ? '' : 's'} on ${date}`;
+        tooltip.style.display = 'block';
+        tooltip.setAttribute('aria-hidden', 'false');
+        positionTooltipFromEvent(e);
+      });
+      day.addEventListener('mousemove', (e) => positionTooltipFromEvent(e));
+      day.addEventListener('mouseleave', () => {
+        if (!tooltip) return;
+        tooltip.style.display = 'none';
+        tooltip.setAttribute('aria-hidden', 'true');
+      });
+
+      day.addEventListener('focus', (e) => {
+        if (!tooltip) return;
+        tooltip.textContent = `${count} commit${count === 1 ? '' : 's'} on ${date}`;
+        tooltip.style.display = 'block';
+        tooltip.setAttribute('aria-hidden', 'false');
+        // position tooltip above the focused element
+        const rect = day.getBoundingClientRect();
+        const wrapRect = wrapper.getBoundingClientRect();
+        tooltip.style.left = (rect.left - wrapRect.left + rect.width / 2) + 'px';
+        tooltip.style.top = (rect.top - wrapRect.top - 10) + 'px';
+      });
+      day.addEventListener('blur', () => {
+        if (!tooltip) return;
+        tooltip.style.display = 'none';
+        tooltip.setAttribute('aria-hidden', 'true');
+      });
+
+      container.appendChild(day);
+    });
+  }
   fetchGitHubContributionStats();
   initProjectFilters();
 

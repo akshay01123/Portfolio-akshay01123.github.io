@@ -227,9 +227,15 @@
         </div>
 
         <div class="github-graph-card">
-          <a href="https://github.com/akshay01123" target="_blank" rel="noopener noreferrer">
-            <img src="https://ghchart.rshah.org/akshay01123" alt="GitHub contributions graph" class="github-graph" loading="lazy">
-          </a>
+          <div class="github-graph-wrapper">
+            <a href="https://github.com/akshay01123" target="_blank" rel="noopener noreferrer" class="github-graph-fallback">
+              <img src="https://ghchart.rshah.org/akshay01123" alt="GitHub contributions graph" class="github-graph" loading="lazy">
+            </a>
+
+            <!-- Rendered contribution grid (hoverable dots with tooltip) -->
+            <div id="github-contrib-grid" class="github-contrib-grid" role="img" aria-label="GitHub contributions grid" aria-hidden="true"></div>
+            <div id="contrib-tooltip" class="contrib-tooltip" aria-hidden="true"></div>
+          </div>
         </div>
         <p class="github-note">Last 1 year contributions. Fetched live from GitHub.</p>
       </div>
