@@ -186,13 +186,49 @@ document.addEventListener('DOMContentLoaded', () => {
           streakLine.textContent = `[Current Streak: ${current} day${current === 1 ? '' : 's'} | Longest: ${longest} day${longest === 1 ? '' : 's'}]`;
         }
 
-        const activityLine = document.getElementById('github-activity-line');
-        if (activityLine) {
-          function fmt(count, total) {
-            const pct = total > 0 ? (count / total) * 100 : 0;
-            return `${count}/${total} (${pct.toFixed(1)}%)`;
-          }
-          activityLine.textContent = `Active days — 7d: ${fmt(active7,7)} · 30d: ${fmt(active30,30)} · 6mo: ${fmt(active6mo,183)} · 1y: ${fmt(active1y,365)}`;
+        const activityGrid = document.getElementById('github-activity-grid');
+        if (activityGrid) {
+          activityGrid.innerHTML = '';
+          const ranges = [
+            { key: '7d', count: active7, total: 7 },
+            { key: '30d', count: active30, total: 30 },
+            { key: '6mo', count: active6mo, total: 183 },
+            { key: '1y', count: active1y, total: 365 }
+          ];
+
+          ranges.forEach(r => {
+            const pct = r.total > 0 ? (r.count / r.total) * 100 : 0;
+            const card = document.createElement('div');
+            card.className = 'activity-card';
+
+            const label = document.createElement('div');
+            label.className = 'activity-label';
+            label.textContent = r.key;
+            card.appendChild(label);
+
+            const value = document.createElement('div');
+            value.className = 'activity-value';
+            value.textContent = `${r.count}/${r.total} · ${pct.toFixed(1)}%`;
+            card.appendChild(value);
+
+            const sub = document.createElement('div');
+            sub.className = 'activity-sub';
+            sub.textContent = 'Active days';
+            card.appendChild(sub);
+
+            const bar = document.createElement('div');
+            bar.className = 'activity-bar';
+            const fill = document.createElement('div');
+            fill.className = 'activity-fill';
+            fill.style.width = '0%';
+            bar.appendChild(fill);
+            card.appendChild(bar);
+
+            activityGrid.appendChild(card);
+
+            // animate fill after insertion
+            requestAnimationFrame(() => { fill.style.width = `${Math.min(100, Math.max(0, pct))}%`; });
+          });
         }
     } catch (error) {
       console.error('GitHub streak fetch failed:', error);
