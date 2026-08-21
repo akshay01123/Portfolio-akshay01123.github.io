@@ -483,12 +483,35 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = el.closest('.bento-card');
         const src = card?.dataset?.thumb;
         if (src) {
-          // set background image
-          el.style.backgroundImage = `url('${src}')`;
-          el.classList.add('loaded');
-          card.classList.add('thumb-loaded');
+          // Prefetch image and validate its shape/size to avoid using small square avatars
+          const img = new Image();
+          img.crossOrigin = 'anonymous';
+          img.onload = function() {
+            const w = img.naturalWidth || 0;
+            const h = img.naturalHeight || 1;
+            const ratio = w / h;
+            // Treat likely avatar images as unwanted if too small or near-square
+            const isSmall = w < 300;
+            const isSquareLike = Math.abs(ratio - (16/9)) > 0.6; // avatars ~1.0, good OG images >~1.3
+            if (!isSmall && !isSquareLike) {
+              el.style.backgroundImage = `url('${src}')`;
+              el.classList.add('loaded');
+              card.classList.add('thumb-loaded');
+            } else {
+              // mark as empty to show fallback
+              el.classList.add('empty');
+            }
+            obs.unobserve(el);
+          };
+          img.onerror = function() {
+            el.classList.add('empty');
+            obs.unobserve(el);
+          };
+          img.src = src;
+        } else {
+          el.classList.add('empty');
+          obs.unobserve(el);
         }
-        obs.unobserve(el);
       });
     }, { rootMargin: '200px 0px' });
 
