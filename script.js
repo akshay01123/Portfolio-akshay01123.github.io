@@ -246,6 +246,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!userResponse.ok) throw new Error('GitHub user request failed');
       const userData = await userResponse.json();
 
+      // Populate hero profile avatar if present
+      try {
+        const avatarEl = document.getElementById('profile-avatar');
+        if (avatarEl && userData && userData.avatar_url) {
+          avatarEl.src = userData.avatar_url;
+          avatarEl.alt = userData.name || githubUsername;
+          avatarEl.loading = 'lazy';
+          avatarEl.style.visibility = 'visible';
+        }
+      } catch (err) {
+        console.warn('Setting profile avatar failed', err);
+      }
+
       const reposResponse = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100&sort=updated`);
       if (!reposResponse.ok) throw new Error('GitHub repos request failed');
       const reposData = await reposResponse.json();
