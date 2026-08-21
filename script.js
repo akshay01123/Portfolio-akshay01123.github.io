@@ -162,19 +162,33 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn('renderContribGrid failed', err);
       }
 
-        // Count how many days in the last 30 days had at least one commit
+        // Build a set of active dates (UTC YYYY-MM-DD strings)
         const activeDatesSet = new Set(contributions.filter(item => Number(item.count) > 0 && item.date).map(item => item.date));
         const todayUtc = new Date();
         todayUtc.setUTCHours(0,0,0,0);
-        const startUtc = new Date(todayUtc);
-        startUtc.setUTCDate(startUtc.getUTCDate() - 29); // last 30 days inclusive
-        let activeLast30 = 0;
-        for (let d = new Date(startUtc); d <= todayUtc; d.setUTCDate(d.getUTCDate() + 1)) {
-          if (activeDatesSet.has(formatUtcDate(d))) activeLast30++;
+
+        function countActiveDays(daysBack) {
+          const start = new Date(todayUtc);
+          start.setUTCDate(start.getUTCDate() - (daysBack - 1)); // inclusive range
+          let count = 0;
+          for (let d = new Date(start); d <= todayUtc; d.setUTCDate(d.getUTCDate() + 1)) {
+            if (activeDatesSet.has(formatUtcDate(d))) count++;
+          }
+          return count;
         }
 
+        const active7 = countActiveDays(7);
+        const active30 = countActiveDays(30);
+        const active6mo = countActiveDays(183);
+        const active1y = countActiveDays(365);
+
         if (streakLine) {
-          streakLine.textContent = `[Current Streak: ${current} day${current === 1 ? '' : 's'} | Longest Streak: ${longest} day${longest === 1 ? '' : 's'}] · Active days (30d): ${activeLast30}`;
+          streakLine.textContent = `[Current Streak: ${current} day${current === 1 ? '' : 's'} | Longest: ${longest} day${longest === 1 ? '' : 's'}]`;
+        }
+
+        const activityLine = document.getElementById('github-activity-line');
+        if (activityLine) {
+          activityLine.textContent = `Active days — 7d: ${active7} · 30d: ${active30} · 6mo: ${active6mo} · 1y: ${active1y}`;
         }
     } catch (error) {
       console.error('GitHub streak fetch failed:', error);
