@@ -188,7 +188,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const activityLine = document.getElementById('github-activity-line');
         if (activityLine) {
-          activityLine.textContent = `Active days — 7d: ${active7} · 30d: ${active30} · 6mo: ${active6mo} · 1y: ${active1y}`;
+          function fmt(count, total) {
+            const pct = total > 0 ? (count / total) * 100 : 0;
+            return `${count}/${total} (${pct.toFixed(1)}%)`;
+          }
+          activityLine.textContent = `Active days — 7d: ${fmt(active7,7)} · 30d: ${fmt(active30,30)} · 6mo: ${fmt(active6mo,183)} · 1y: ${fmt(active1y,365)}`;
         }
     } catch (error) {
       console.error('GitHub streak fetch failed:', error);
