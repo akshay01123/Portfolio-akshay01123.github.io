@@ -1902,10 +1902,12 @@ html[data-theme="dark"] {
 
 /* Structured activity grid */
 .github-activity-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 10px;
+  display: flex;
+  gap: 12px;
   margin-top: 10px;
+  align-items: stretch;
+  overflow-x: auto;
+  padding-bottom: 6px;
 }
 
 .activity-card {
@@ -1917,6 +1919,8 @@ html[data-theme="dark"] {
   flex-direction: column;
   gap: 8px;
   align-items: stretch;
+  flex: 1 0 180px;
+  min-width: 160px;
 }
 
 .activity-label {
@@ -1951,7 +1955,8 @@ html[data-theme="dark"] {
 }
 
 @media (max-width: 640px) {
-  .github-activity-grid { grid-template-columns: 1fr; }
+  .github-activity-grid { gap: 10px; }
+  .activity-card { min-width: 220px; }
 }
 
 .github-note {
