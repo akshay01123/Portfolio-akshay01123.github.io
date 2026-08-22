@@ -822,14 +822,14 @@ a:hover {
 
 /* Hero profile avatar */
 .profile-avatar {
-  width: 84px;
-  height: 84px;
+  width: 252px;
+  height: 252px;
   border-radius: 999px;
   object-fit: cover;
   display: inline-block;
   margin-bottom: 12px;
-  border: 2px solid rgba(255,255,255,0.6);
-  box-shadow: 0 8px 24px rgba(16,24,40,0.12);
+  border: 3px solid rgba(255,255,255,0.6);
+  box-shadow: 0 12px 40px rgba(16,24,40,0.16);
 }
 
 html[data-theme="dark"] .profile-avatar {
