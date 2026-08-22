@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ];
 
           ranges.forEach(r => {
-            const pct = r.total > 0 ? (r.count / r.total) * 100 : 0;
+            const pct = r.total > 0 ? Math.round((r.count / r.total) * 100) : 0;
             const card = document.createElement('div');
             card.className = 'activity-card';
 
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const value = document.createElement('div');
             value.className = 'activity-value';
-            value.textContent = `${r.count}/${r.total} · ${pct.toFixed(1)}%`;
+            value.textContent = `${r.count}/${r.total} · ${pct}%`;
             card.appendChild(value);
 
             const sub = document.createElement('div');
