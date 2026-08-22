@@ -502,9 +502,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const h = img.naturalHeight || 1;
             const ratio = w / h;
             // Treat likely avatar images as unwanted if too small or near-square
-            const isSmall = w < 300;
-            const isSquareLike = Math.abs(ratio - (16/9)) > 0.6; // avatars ~1.0, good OG images >~1.3
-            if (!isSmall && !isSquareLike) {
+            // stricter checks to avoid using small square avatars as thumbnails
+            const isSmall = w < 400; // require reasonable resolution
+            const isLandscape = ratio >= 1.25; // prefer wider images (OG images are typically landscape)
+            if (!isSmall && isLandscape) {
               el.style.backgroundImage = `url('${src}')`;
               el.classList.add('loaded');
               card.classList.add('thumb-loaded');

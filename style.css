@@ -1120,6 +1120,17 @@ html[data-theme="dark"] .btn-outline:hover {
   background-position: center;
 }
 
+/* Ensure thumbnails have a subtle dark overlay for readable text on light images */
+.bento-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.16) 70%);
+  pointer-events: none;
+  border-radius: 12px;
+  transition: background 220ms ease;
+}
+
 .bento-card.thumb-loaded .bento-thumb {
   transform: translateZ(0);
 }
@@ -1176,6 +1187,26 @@ html[data-theme="dark"] .btn-outline:hover {
   color: var(--text-muted);
   font-weight: 700;
 }
+
+/* Improve description contrast for cards on light backgrounds */
+.bento-card-description {
+  color: var(--text); /* stronger contrast */
+}
+
+/* LinkedIn button in hero */
+.hero-linkedin {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #0A66C2; /* LinkedIn blue */
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.hero-linkedin svg { width: 18px; height: 18px; fill: currentColor; }
 
 .bento-button-secondary {
   background: transparent;
