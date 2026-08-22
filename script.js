@@ -632,9 +632,22 @@ document.addEventListener('DOMContentLoaded', () => {
       card.addEventListener('click', (e)=>{
         // ignore clicks on links inside the card
         if(e.target.closest('a')) return;
+        // prefer opening the card's primary link (e.g., GitHub) if present
+        const linkNode = card.querySelector('.bento-link');
+        const href = linkNode ? (linkNode.href || linkNode.getAttribute('data-href')) : '';
+        if (href && href.startsWith('http')) {
+          // open in new tab
+          window.open(href, '_blank', 'noopener');
+          // analytics
+          const title = card.querySelector('.bento-card-header h3')?.innerText || 'unknown';
+          if(window.plausible) window.plausible('Project Click', { props: { project: title } });
+          return;
+        }
+        // fallback: open modal if no external link present
         openModal(card);
-        // analytics
-        if(window.plausible && title) window.plausible('Project Click', { props: { project: title } });
+        // analytics for modal open
+        const title = card.querySelector('.bento-card-header h3')?.innerText || 'unknown';
+        if(window.plausible) window.plausible('Project Click', { props: { project: title } });
       });
     });
   })();
