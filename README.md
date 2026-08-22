@@ -2,7 +2,8 @@
 
 A personal portfolio website showcasing my professional background, skills, and projects.
 
-**Live site:** [akshay01123.github.io](https://akshay01123.github.io)
+- **Project site (live now):** https://akshay01123.github.io/Portfolio-akshay01123.github.io/
+- **User site (root):** https://akshay01123.github.io/  (see "Deploying to user Pages" below)
 
 ---
 
@@ -55,3 +56,31 @@ script.js    — Interactivity (menu, typewriter, GitHub stats, i18n, chat)
 - LinkedIn: [linkedin.com/in/akshay543](https://linkedin.com/in/akshay543/)
 - Instagram: [@japaneasy101](https://instagram.com/japaneasy101)
 - GitHub: [github.com/akshay01123](https://github.com/akshay01123)
+
+---
+
+## Deploying to user Pages (publish to https://akshay01123.github.io)
+
+Two easy options to make the site available at the root domain:
+
+- Using GitHub CLI (`gh`) — creates the required repository and pushes your current folder:
+
+```bash
+# authenticate first
+gh auth login
+# from the project folder, create the user-pages repo and push
+gh repo create akshay01123/akshay01123.github.io --public --source=. --push --remote=upstream --confirm
+```
+
+- Manual via GitHub website — create a repository named `akshay01123.github.io`, then run locally:
+
+```bash
+# add remote (replace URL if using SSH)
+git remote add userpages https://github.com/akshay01123/akshay01123.github.io.git
+# ensure main branch
+git branch -M main
+# push to the new repo
+git push -u userpages main
+```
+
+After pushing, GitHub Pages will publish the user site at https://akshay01123.github.io (may take a few minutes).
