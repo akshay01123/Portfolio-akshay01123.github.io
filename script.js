@@ -180,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const active7 = countActiveDays(7);
         const active30 = countActiveDays(30);
         const active6mo = countActiveDays(183);
-        const active1y = countActiveDays(365);
 
         if (streakLine) {
           streakLine.textContent = `[Current Streak: ${current} day${current === 1 ? '' : 's'} | Longest: ${longest} day${longest === 1 ? '' : 's'}]`;
@@ -192,8 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const ranges = [
             { key: '7d', count: active7, total: 7 },
             { key: '30d', count: active30, total: 30 },
-            { key: '6mo', count: active6mo, total: 183 },
-            { key: '1y', count: active1y, total: 365 }
+            { key: '6mo', count: active6mo, total: 183 }
           ];
 
           ranges.forEach(r => {
