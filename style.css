@@ -1933,46 +1933,45 @@ html[data-theme="dark"] {
 
 /* Structured activity grid */
 .github-activity-grid {
-  display: flex;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
   margin-top: 10px;
-  align-items: stretch;
-  overflow-x: auto;
-  padding-bottom: 6px;
 }
 
 .activity-card {
   background: var(--surface-elevated);
   border: 1px solid var(--border);
-  padding: 10px 12px;
+  padding: 8px 10px;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: stretch;
-  flex: 1 0 180px;
-  min-width: 160px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 6px;
+  align-items: center;
+  min-width: 0;
 }
 
 .activity-label {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   font-weight: 700;
 }
 
 .activity-value {
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 800;
   color: var(--accent);
+  text-align: right;
+  white-space: nowrap;
 }
 
 .activity-sub {
-  font-size: 0.82rem;
-  color: var(--text-muted);
+  display: none;
 }
 
 .activity-bar {
-  height: 8px;
+  grid-column: 1 / -1;
+  height: 5px;
   background: var(--border);
   border-radius: 999px;
   overflow: hidden;
@@ -1986,8 +1985,10 @@ html[data-theme="dark"] {
 }
 
 @media (max-width: 640px) {
-  .github-activity-grid { gap: 10px; }
-  .activity-card { min-width: 220px; }
+  .github-activity-grid { gap: 6px; }
+  .activity-card { padding: 7px; }
+  .activity-label { font-size: 0.75rem; }
+  .activity-value { font-size: 0.8rem; }
 }
 
 .github-note {
