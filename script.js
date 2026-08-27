@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const ranges = [
             { key: '7d', count: active7, total: 7 },
             { key: '30d', count: active30, total: 30 },
-            { key: '6mo', count: active6mo, total: 183 }
+            { key: '6m', count: active6mo, total: 183 }
           ];
 
           ranges.forEach(r => {

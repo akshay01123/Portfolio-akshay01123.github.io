@@ -1286,6 +1286,56 @@ html[data-theme="dark"] .btn-outline:hover {
   color: var(--text-muted);
 }
 
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.achievement-card {
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-glass);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(20px) saturate(150%);
+}
+
+.achievement-value {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: var(--accent);
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.achievement-card h3 {
+  margin: 0 0 8px;
+  color: var(--text-heading);
+  font-size: 1rem;
+}
+
+.achievement-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 1024px) {
+  .achievements-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .achievements-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
 .experience-list,
 .skills-list {
   list-style: none;
@@ -1713,6 +1763,7 @@ html[data-theme="dark"] .btn-outline:hover {
 .github-stats-section {
   display: grid;
   gap: 8px;
+  container-type: inline-size;
 }
 
 .github-languages-section {
@@ -1906,18 +1957,18 @@ html[data-theme="dark"] {
 .github-stats-line {
   margin: 18px 0 0;
   color: var(--text);
-  font-size: 1rem;
+  font-size: clamp(0.78rem, 3cqi, 1rem);
   font-weight: 700;
   letter-spacing: 0.01em;
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
 .github-streak-line {
   margin-top: 8px;
-  font-size: 0.95rem;
+  font-size: clamp(0.72rem, 2.8cqi, 0.95rem);
   color: var(--text-muted);
   white-space: normal;
   overflow: visible;
@@ -1933,46 +1984,45 @@ html[data-theme="dark"] {
 
 /* Structured activity grid */
 .github-activity-grid {
-  display: flex;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
   margin-top: 10px;
-  align-items: stretch;
-  overflow-x: auto;
-  padding-bottom: 6px;
 }
 
 .activity-card {
   background: var(--surface-elevated);
   border: 1px solid var(--border);
-  padding: 10px 12px;
+  padding: 8px 10px;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: stretch;
-  flex: 1 0 180px;
-  min-width: 160px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 6px;
+  align-items: center;
+  min-width: 0;
 }
 
 .activity-label {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   font-weight: 700;
 }
 
 .activity-value {
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 800;
   color: var(--accent);
+  text-align: right;
+  white-space: nowrap;
 }
 
 .activity-sub {
-  font-size: 0.82rem;
-  color: var(--text-muted);
+  display: none;
 }
 
 .activity-bar {
-  height: 8px;
+  grid-column: 1 / -1;
+  height: 5px;
   background: var(--border);
   border-radius: 999px;
   overflow: hidden;
@@ -1985,9 +2035,27 @@ html[data-theme="dark"] {
   transition: width 600ms cubic-bezier(0.2,0.9,0.2,1);
 }
 
+@container (max-width: 420px) {
+  .github-stats-line {
+    letter-spacing: 0;
+  }
+
+  .activity-card {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .activity-value {
+    font-size: clamp(0.68rem, 4cqi, 0.8rem);
+    text-align: left;
+  }
+}
+
 @media (max-width: 640px) {
-  .github-activity-grid { gap: 10px; }
-  .activity-card { min-width: 220px; }
+  .github-activity-grid { gap: 6px; }
+  .activity-card { padding: 7px; }
+  .activity-label { font-size: 0.75rem; }
+  .activity-value { font-size: 0.8rem; }
 }
 
 .github-note {
