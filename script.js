@@ -182,8 +182,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const active3mo = countActiveDays(92);
         const active6mo = countActiveDays(183);
 
+        // Merge streak info into the main stats line so all GitHub stats appear on one line
+        const statsLine = document.getElementById('github-stats-line');
+        const streakText = `Streak: ${current} day${current === 1 ? '' : 's'} (longest ${longest} day${longest === 1 ? '' : 's'})`;
+        if (statsLine) {
+          const base = statsLine.textContent && statsLine.textContent.trim() ? statsLine.textContent.trim() + ' · ' : '';
+          statsLine.textContent = base + streakText;
+        }
+        // hide the old separate streak line if present
         if (streakLine) {
-          streakLine.textContent = `[Current Streak: ${current} day${current === 1 ? '' : 's'} | Longest: ${longest} day${longest === 1 ? '' : 's'}]`;
+          streakLine.style.display = 'none';
         }
 
         const activityGrid = document.getElementById('github-activity-grid');
