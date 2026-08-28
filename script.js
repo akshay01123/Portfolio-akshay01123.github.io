@@ -204,6 +204,27 @@ document.addEventListener('DOMContentLoaded', () => {
             { key: '6m', count: active6mo, total: 183 }
           ];
 
+          // Compose a single-line summary for the activity ranges and place it in the main stats line
+          try {
+            const rangesSummary = ranges.map(r => {
+              const pct = r.total > 0 ? Math.round((r.count / r.total) * 100) : 0;
+              // shorten keys for display (3mo -> 3m)
+              const label = r.key === '3mo' ? '3m' : r.key;
+              return `${label}: ${r.count}/${r.total} (${pct}%)`;
+            }).join(' · ');
+
+            const mainStatsLine = document.getElementById('github-stats-line');
+            if (mainStatsLine) {
+              const base = mainStatsLine.textContent && mainStatsLine.textContent.trim() ? mainStatsLine.textContent.trim() + ' · ' : '';
+              mainStatsLine.textContent = base + rangesSummary;
+            }
+
+            // hide the grid representation to avoid duplicate information
+            if (activityGrid) activityGrid.style.display = 'none';
+          } catch (err) {
+            console.warn('Failed to render single-line activity summary', err);
+          }
+
           function renderRangeCards(visibleKey) {
             activityGrid.innerHTML = '';
             const toRender = visibleKey ? ranges.filter(r => r.key === visibleKey) : ranges;
