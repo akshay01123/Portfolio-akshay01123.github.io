@@ -218,6 +218,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (activityLineEl) {
               activityLineEl.textContent = rangesSummary;
             }
+            // Also populate the hero sidebar card (same format as other hero cards)
+            const heroActEl = document.getElementById('github-activity-hero-text');
+            if (heroActEl) {
+              heroActEl.innerHTML = rangesSummary.split(' · ').join('<br>');
+            }
           } catch (err) {
             console.warn('Failed to render single-line activity summary', err);
           }

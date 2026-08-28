@@ -145,6 +145,10 @@
           <strong>Latest</strong>
           <p>Launched Japaneasy101 on Instagram for bite-sized Japanese lessons. Currently, having more than 45,000 followers — Follow <a href="https://instagram.com/japaneasy101" target="_blank" rel="noopener noreferrer">@japaneasy101</a> for updates.</p>
         </div>
+        <div class="hero-card" id="github-hero-activity">
+          <strong>GitHub Activity</strong>
+          <p id="github-activity-hero-text">Loading activity summary...</p>
+        </div>
       </aside>
     </section>
 
@@ -255,17 +259,15 @@
       <h2>GitHub</h2>
       <div class="github-card">
         <div class="github-stats-section">
-          <p class="github-stats-line" id="github-stats-line">Loading GitHub stats...</p>
-          <p class="github-stats-line github-streak-line" id="github-streak-line">Loading streak stats...</p>
+          <div class="github-stats-block">
+            <p class="github-stats-line" id="github-stats-line">Loading GitHub stats...</p>
+            <p class="github-stats-line github-streak-line" id="github-streak-line">Loading streak stats...</p>
+            <p class="github-activity-line" id="github-activity-line">Loading activity summary...</p>
+          </div>
           <div id="github-activity-grid" class="github-activity-grid" aria-live="polite" aria-atomic="true">
             <!-- populated by script: selectable ranges (7d, 30d, 3mo, 6mo) -->
           </div>
-          <div class="github-range-controls" role="tablist" aria-label="Contribution range selector">
-            <button class="range-btn active" data-range="7d" aria-pressed="true">7d</button>
-            <button class="range-btn" data-range="30d" aria-pressed="false">30d</button>
-            <button class="range-btn" data-range="3mo" aria-pressed="false">3 months</button>
-            <button class="range-btn" data-range="6mo" aria-pressed="false">6 months</button>
-          </div>
+          <!-- Range controls removed to keep activity bars compact on one line -->
         </div>
 
         <div class="github-languages-section">
