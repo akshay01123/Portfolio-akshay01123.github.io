@@ -213,14 +213,11 @@ document.addEventListener('DOMContentLoaded', () => {
               return `${label}: ${r.count}/${r.total} (${pct}%)`;
             }).join(' · ');
 
-            const mainStatsLine = document.getElementById('github-stats-line');
-            if (mainStatsLine) {
-              const base = mainStatsLine.textContent && mainStatsLine.textContent.trim() ? mainStatsLine.textContent.trim() + ' · ' : '';
-              mainStatsLine.textContent = base + rangesSummary;
+            // Put the ranges summary on the dedicated activity line (keep stats/streak separate)
+            const activityLineEl = document.getElementById('github-activity-line');
+            if (activityLineEl) {
+              activityLineEl.textContent = rangesSummary;
             }
-
-            // hide the grid representation to avoid duplicate information
-            if (activityGrid) activityGrid.style.display = 'none';
           } catch (err) {
             console.warn('Failed to render single-line activity summary', err);
           }
@@ -253,14 +250,23 @@ document.addEventListener('DOMContentLoaded', () => {
               bar.className = 'activity-bar';
               const fill = document.createElement('div');
               fill.className = 'activity-fill';
-              fill.style.width = '0%';
+              // set a small visible baseline then animate to percent
+              const minVisible = 4; // percent
+              const targetPct = Math.min(100, Math.max(0, pct));
+              fill.style.width = Math.max(minVisible, targetPct) + '%';
+              fill.style.minWidth = '6px';
               bar.appendChild(fill);
               card.appendChild(bar);
 
               activityGrid.appendChild(card);
 
-              // animate fill after insertion
-              requestAnimationFrame(() => { fill.style.width = `${Math.min(100, Math.max(0, pct))}%`; });
+              // ensure grid is visible
+              if (activityGrid.style.display === 'none') activityGrid.style.display = '';
+
+              // animate fill slightly from baseline to exact value for effect
+              requestAnimationFrame(() => {
+                fill.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+              });
             });
           }
 
