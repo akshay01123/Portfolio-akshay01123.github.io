@@ -258,7 +258,13 @@
           <p class="github-stats-line" id="github-stats-line">Loading GitHub stats...</p>
           <p class="github-stats-line github-streak-line" id="github-streak-line">Loading streak stats...</p>
           <div id="github-activity-grid" class="github-activity-grid" aria-live="polite" aria-atomic="true">
-            <!-- populated by script: cards for 7d, 30d, 6mo -->
+            <!-- populated by script: selectable ranges (7d, 30d, 3mo, 6mo) -->
+          </div>
+          <div class="github-range-controls" role="tablist" aria-label="Contribution range selector">
+            <button class="range-btn active" data-range="7d" aria-pressed="true">7d</button>
+            <button class="range-btn" data-range="30d" aria-pressed="false">30d</button>
+            <button class="range-btn" data-range="3mo" aria-pressed="false">3 months</button>
+            <button class="range-btn" data-range="6mo" aria-pressed="false">6 months</button>
           </div>
         </div>
 
@@ -274,7 +280,7 @@
             <div id="contrib-tooltip" class="contrib-tooltip" aria-hidden="true"></div>
           </div>
         </div>
-        <p class="github-note">Contributions (showing 7d, 30d, and 6mo activity). Fetched live from GitHub.</p>
+        <p class="github-note">Contributions (select a range: 7d, 30d, 3 months, 6 months). Fetched live from GitHub.</p>
       </div>
     </section>
 
@@ -511,12 +517,8 @@
           <a href="https://github.com/akshay01123/forensic-sketch-ai" target="_blank" rel="noopener noreferrer" class="bento-link">View on GitHub</a>
         </article>
         
-<<<<<<< HEAD
-        <article class="bento-card compact" data-category="nlp tools data" data-thumb="https://opengraph.githubassets.com/1/akshay01123/jobmatch-ai">
+        <article class="bento-card compact" data-category="nlp tools data" data-thumb="https://opengraph.githubassets.com/1/akshay01123/jobmtach-ai">
           <div class="bento-thumb" aria-hidden="true"></div>
-=======
-        <article class="bento-card compact" data-category="nlp tools data">
->>>>>>> a0e9c4f3056f12fa853a2477611fd4e617e51a2b
           <div class="bento-card-header">
             <h3>JobMatch AI</h3>
             <span class="bento-badge">New</span>
