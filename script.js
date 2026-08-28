@@ -208,8 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
           try {
             const rangesSummary = ranges.map(r => {
               const pct = r.total > 0 ? Math.round((r.count / r.total) * 100) : 0;
-              // shorten keys for display (3mo -> 3m)
-              const label = r.key === '3mo' ? '3m' : r.key;
+              // shorten keys for display: 30d -> 1m, 3mo -> 3m
+              const label = r.key === '3mo' ? '3m' : (r.key === '30d' ? '1m' : r.key);
               return `${label}: ${r.count}/${r.total} (${pct}%)`;
             }).join(' · ');
 
@@ -238,7 +238,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
               const label = document.createElement('div');
               label.className = 'activity-label';
-              label.textContent = r.key;
+              // display shorter labels for readability
+              const displayLabel = r.key === '3mo' ? '3m' : (r.key === '30d' ? '1m' : r.key);
+              label.textContent = displayLabel;
               card.appendChild(label);
 
               const value = document.createElement('div');
