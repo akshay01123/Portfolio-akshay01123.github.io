@@ -179,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const active7 = countActiveDays(7);
         const active30 = countActiveDays(30);
+        const active3mo = countActiveDays(92);
         const active6mo = countActiveDays(183);
 
         if (streakLine) {
@@ -191,42 +192,66 @@ document.addEventListener('DOMContentLoaded', () => {
           const ranges = [
             { key: '7d', count: active7, total: 7 },
             { key: '30d', count: active30, total: 30 },
+            { key: '3mo', count: active3mo, total: 92 },
             { key: '6m', count: active6mo, total: 183 }
           ];
 
-          ranges.forEach(r => {
-            const pct = r.total > 0 ? Math.round((r.count / r.total) * 100) : 0;
-            const card = document.createElement('div');
-            card.className = 'activity-card';
+          function renderRangeCards(visibleKey) {
+            activityGrid.innerHTML = '';
+            const toRender = visibleKey ? ranges.filter(r => r.key === visibleKey) : ranges;
+            toRender.forEach(r => {
+              const pct = r.total > 0 ? Math.round((r.count / r.total) * 100) : 0;
+              const card = document.createElement('div');
+              card.className = 'activity-card';
+              if (visibleKey && r.key === visibleKey) card.classList.add('selected');
 
-            const label = document.createElement('div');
-            label.className = 'activity-label';
-            label.textContent = r.key;
-            card.appendChild(label);
+              const label = document.createElement('div');
+              label.className = 'activity-label';
+              label.textContent = r.key;
+              card.appendChild(label);
 
-            const value = document.createElement('div');
-            value.className = 'activity-value';
-            value.textContent = `${r.count}/${r.total} · ${pct}%`;
-            card.appendChild(value);
+              const value = document.createElement('div');
+              value.className = 'activity-value';
+              value.textContent = `${r.count}/${r.total} · ${pct}%`;
+              card.appendChild(value);
 
-            const sub = document.createElement('div');
-            sub.className = 'activity-sub';
-            sub.textContent = 'Active days';
-            card.appendChild(sub);
+              const sub = document.createElement('div');
+              sub.className = 'activity-sub';
+              sub.textContent = 'Active days';
+              card.appendChild(sub);
 
-            const bar = document.createElement('div');
-            bar.className = 'activity-bar';
-            const fill = document.createElement('div');
-            fill.className = 'activity-fill';
-            fill.style.width = '0%';
-            bar.appendChild(fill);
-            card.appendChild(bar);
+              const bar = document.createElement('div');
+              bar.className = 'activity-bar';
+              const fill = document.createElement('div');
+              fill.className = 'activity-fill';
+              fill.style.width = '0%';
+              bar.appendChild(fill);
+              card.appendChild(bar);
 
-            activityGrid.appendChild(card);
+              activityGrid.appendChild(card);
 
-            // animate fill after insertion
-            requestAnimationFrame(() => { fill.style.width = `${Math.min(100, Math.max(0, pct))}%`; });
-          });
+              // animate fill after insertion
+              requestAnimationFrame(() => { fill.style.width = `${Math.min(100, Math.max(0, pct))}%`; });
+            });
+          }
+
+          // initial render: show all ranges
+          renderRangeCards();
+
+          // wire range buttons (if present)
+          const rangeButtons = document.querySelectorAll('.github-range-controls .range-btn');
+          if (rangeButtons && rangeButtons.length) {
+            rangeButtons.forEach(btn => {
+              btn.addEventListener('click', () => {
+                const key = btn.dataset.range;
+                // toggle active classes and aria-pressed
+                rangeButtons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+                btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
+                // when clicked, render only the selected range card
+                renderRangeCards(key);
+              });
+            });
+          }
         }
     } catch (error) {
       console.error('GitHub streak fetch failed:', error);
