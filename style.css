@@ -1985,9 +1985,15 @@ html[data-theme="dark"] {
 /* Structured activity grid */
 .github-activity-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Show four compact activity cards per row on wide screens */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
   margin-top: 10px;
+}
+
+@media (max-width: 1000px) {
+  /* fall back to 3 columns on medium screens */
+  .github-activity-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 .activity-card {
