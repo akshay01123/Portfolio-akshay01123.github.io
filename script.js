@@ -145,22 +145,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function fetchGitHubContributionStats() {
     const streakLine = document.getElementById('github-streak-line');
-    if (!streakLine) return;
+    const container = document.getElementById('github-contrib-grid');
+    if (!streakLine || !container) return;
 
     try {
       const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${githubUsername}?y=last`);
-      if (!response.ok) throw new Error('Contribution calendar request failed');
+      if (!response.ok) throw new Error('API request failed');
 
       const data = await response.json();
       const contributions = Array.isArray(data.contributions) ? data.contributions : [];
       const { current, longest } = calculateStreaks(contributions);
 
-      // Render an accessible contribution grid with hover tooltips showing counts
-      try {
-        renderContribGrid(contributions);
-      } catch (err) {
-        console.warn('renderContribGrid failed', err);
-      }
+      // Render contribution grid
+      renderContribGrid(contributions);
 
         // Build a set of active dates (UTC YYYY-MM-DD strings)
         const activeDatesSet = new Set(contributions.filter(item => Number(item.count) > 0 && item.date).map(item => item.date));
@@ -296,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
     } catch (error) {
-      console.error('GitHub streak fetch failed:', error);
+      console.error('GitHub stats fetch failed:', error);
       if (streakLine) {
         streakLine.textContent = 'Streak stats unavailable';
       }
@@ -451,9 +448,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('github-contrib-grid');
     const tooltip = document.getElementById('contrib-tooltip');
     if (!container) return;
+    
+    if (!Array.isArray(contributions) || contributions.length === 0) {
+      return;
+    }
 
     container.innerHTML = '';
     container.setAttribute('aria-hidden', 'false');
+
 
     const wrapper = container.parentElement || document.body;
 
