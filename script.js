@@ -201,114 +201,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const statsLine = document.getElementById('github-stats-line');
         const streakText = `Streak: ${current} day${current === 1 ? '' : 's'} (longest ${longest} day${longest === 1 ? '' : 's'})`;
         if (statsLine) {
-          const base = statsLine.textContent && statsLine.textContent.trim() ? statsLine.textContent.trim() + ' · ' : '';
-          statsLine.textContent = base + streakText;
+          statsLine.textContent = streakText;
         }
         // hide the old separate streak line if present
         if (streakLine) {
           streakLine.style.display = 'none';
         }
 
-        const activityGrid = document.getElementById('github-activity-grid');
-        if (activityGrid) {
-          activityGrid.innerHTML = '';
-          const ranges = [
-            { key: '7d', count: active7, total: 7 },
-            { key: '30d', count: active30, total: 30 },
-            { key: '3mo', count: active3mo, total: 92 },
-            { key: '6m', count: active6mo, total: 183 }
-          ];
-
-          // Compose a single-line summary for the activity ranges and place it in the main stats line
-          try {
-            const rangesSummary = ranges.map(r => {
-              const pct = r.total > 0 ? Math.round((r.count / r.total) * 100) : 0;
-              // shorten keys for display: 30d -> 1m, 3mo -> 3m
-              const label = r.key === '3mo' ? '3m' : (r.key === '30d' ? '1m' : r.key);
-              return `${label}: ${r.count}/${r.total} (${pct}%)`;
-            }).join(' · ');
-
-            // Put the ranges summary on the dedicated activity line (keep stats/streak separate)
-            const activityLineEl = document.getElementById('github-activity-line');
-            if (activityLineEl) {
-              activityLineEl.textContent = rangesSummary;
-            }
-            // Also populate the hero sidebar card (same format as other hero cards)
-            const heroActEl = document.getElementById('github-activity-hero-text');
-            if (heroActEl) {
-              heroActEl.innerHTML = rangesSummary.split(' · ').join('<br>');
-            }
-          } catch (err) {
-            console.warn('Failed to render single-line activity summary', err);
-          }
-
-          function renderRangeCards(visibleKey) {
-            activityGrid.innerHTML = '';
-            const toRender = visibleKey ? ranges.filter(r => r.key === visibleKey) : ranges;
-            toRender.forEach(r => {
-              const pct = r.total > 0 ? Math.round((r.count / r.total) * 100) : 0;
-              const card = document.createElement('div');
-              card.className = 'activity-card';
-              if (visibleKey && r.key === visibleKey) card.classList.add('selected');
-
-              const label = document.createElement('div');
-              label.className = 'activity-label';
-              // display shorter labels for readability
-              const displayLabel = r.key === '3mo' ? '3m' : (r.key === '30d' ? '1m' : r.key);
-              label.textContent = displayLabel;
-              card.appendChild(label);
-
-              const value = document.createElement('div');
-              value.className = 'activity-value';
-              value.textContent = `${r.count}/${r.total} · ${pct}%`;
-              card.appendChild(value);
-
-              const sub = document.createElement('div');
-              sub.className = 'activity-sub';
-              sub.textContent = 'Active days';
-              card.appendChild(sub);
-
-              const bar = document.createElement('div');
-              bar.className = 'activity-bar';
-              const fill = document.createElement('div');
-              fill.className = 'activity-fill';
-              // set a small visible baseline then animate to percent
-              const minVisible = 4; // percent
-              const targetPct = Math.min(100, Math.max(0, pct));
-              fill.style.width = Math.max(minVisible, targetPct) + '%';
-              fill.style.minWidth = '6px';
-              bar.appendChild(fill);
-              card.appendChild(bar);
-
-              activityGrid.appendChild(card);
-
-              // ensure grid is visible
-              if (activityGrid.style.display === 'none') activityGrid.style.display = '';
-
-              // animate fill slightly from baseline to exact value for effect
-              requestAnimationFrame(() => {
-                fill.style.width = `${Math.min(100, Math.max(0, pct))}%`;
-              });
-            });
-          }
-
-          // initial render: show all ranges
-          renderRangeCards();
-
-          // wire range buttons (if present)
-          const rangeButtons = document.querySelectorAll('.github-range-controls .range-btn');
-          if (rangeButtons && rangeButtons.length) {
-            rangeButtons.forEach(btn => {
-              btn.addEventListener('click', () => {
-                const key = btn.dataset.range;
-                // toggle active classes and aria-pressed
-                rangeButtons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
-                btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
-                // when clicked, render only the selected range card
-                renderRangeCards(key);
-              });
-            });
-          }
+        // Update progress bars for GitHub hero activity
+        const heroActEl = document.getElementById('github-activity-hero-text');
+        if (heroActEl) {
+          const active7 = countActiveDays(7);
+          const active30 = countActiveDays(30);
+          const pct7 = Math.round((active7 / 7) * 100);
+          const pct30 = Math.round((active30 / 30) * 100);
+          heroActEl.textContent = `7d: ${active7}/7 (${pct7}%) · 30d: ${active30}/30 (${pct30}%)`;
         }
     } catch (error) {
       console.error('GitHub stats fetch failed:', error);
@@ -463,8 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Render contribution grid with per-day hover tooltips
   function renderContribGrid(contributions) {
-    const container = document.getElementById('github-contrib-grid');
-    const tooltip = document.getElementById('contrib-tooltip');
+    const container = document.getElementById('github-contrib-calendar');
     if (!container) return;
     
     if (!Array.isArray(contributions) || contributions.length === 0) {
@@ -472,66 +378,93 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     container.innerHTML = '';
-    container.setAttribute('aria-hidden', 'false');
+    
+    // Create a map of dates to contribution counts
+    const contribMap = {};
+    contributions.forEach(item => {
+      contribMap[item.date] = Number(item.count) || 0;
+    });
 
+    // Get the date range
+    const dates = Object.keys(contribMap).sort();
+    if (dates.length === 0) return;
 
-    const wrapper = container.parentElement || document.body;
+    const startDate = new Date(dates[0] + 'T00:00:00Z');
+    const endDate = new Date(dates[dates.length - 1] + 'T00:00:00Z');
 
-    function positionTooltipFromEvent(ev) {
-      if (!tooltip) return;
-      const wrapRect = wrapper.getBoundingClientRect();
-      const left = ev.clientX - wrapRect.left;
-      const top = ev.clientY - wrapRect.top;
-      tooltip.style.left = (left) + 'px';
-      tooltip.style.top = (top - 14) + 'px';
+    // Organize by weeks (Sunday start)
+    const weeks = [];
+    let currentWeek = [];
+    let currentDate = new Date(startDate);
+    
+    // Adjust to start from Sunday
+    const dayOfWeek = currentDate.getUTCDay();
+    if (dayOfWeek !== 0) {
+      currentDate.setUTCDate(currentDate.getUTCDate() - dayOfWeek);
     }
 
-    contributions.forEach(item => {
-      const count = Number(item.count) || 0;
-      const date = item.date || '';
-      const day = document.createElement('div');
-      day.className = 'contrib-day';
-      day.dataset.count = String(count);
-      day.dataset.date = date;
-      day.tabIndex = 0;
-      day.setAttribute('role', 'button');
-      day.setAttribute('aria-label', `${count} commit${count === 1 ? '' : 's'} on ${date}`);
+    while (currentDate <= endDate) {
+      if (currentWeek.length === 7) {
+        weeks.push(currentWeek);
+        currentWeek = [];
+      }
+      
+      const dateStr = formatUtcDate(currentDate);
+      const count = contribMap[dateStr] || 0;
+      currentWeek.push({ date: dateStr, count });
+      currentDate.setUTCDate(currentDate.getUTCDate() + 1);
+    }
+    
+    if (currentWeek.length > 0) {
+      weeks.push(currentWeek);
+    }
 
-      const level = count === 0 ? 0 : (count >= 8 ? 4 : (count >= 5 ? 3 : (count >= 3 ? 2 : 1)));
-      day.style.background = `var(--contrib-${level})`;
+    // Render the calendar
+    container.style.display = 'grid';
+    container.style.gridAutoFlow = 'column';
+    container.style.gap = '2px';
 
-      day.addEventListener('mouseenter', (e) => {
-        if (!tooltip) return;
-        tooltip.textContent = `${count} commit${count === 1 ? '' : 's'} on ${date}`;
-        tooltip.style.display = 'block';
-        tooltip.setAttribute('aria-hidden', 'false');
-        positionTooltipFromEvent(e);
-      });
-      day.addEventListener('mousemove', (e) => positionTooltipFromEvent(e));
-      day.addEventListener('mouseleave', () => {
-        if (!tooltip) return;
-        tooltip.style.display = 'none';
-        tooltip.setAttribute('aria-hidden', 'true');
-      });
+    weeks.forEach(week => {
+      const weekEl = document.createElement('div');
+      weekEl.className = 'contrib-week';
+      
+      week.forEach(dayData => {
+        const day = document.createElement('div');
+        day.className = 'contrib-day';
+        day.dataset.count = String(dayData.count);
+        day.dataset.date = dayData.date;
 
-      day.addEventListener('focus', (e) => {
-        if (!tooltip) return;
-        tooltip.textContent = `${count} commit${count === 1 ? '' : 's'} on ${date}`;
-        tooltip.style.display = 'block';
-        tooltip.setAttribute('aria-hidden', 'false');
-        // position tooltip above the focused element
-        const rect = day.getBoundingClientRect();
-        const wrapRect = wrapper.getBoundingClientRect();
-        tooltip.style.left = (rect.left - wrapRect.left + rect.width / 2) + 'px';
-        tooltip.style.top = (rect.top - wrapRect.top - 10) + 'px';
-      });
-      day.addEventListener('blur', () => {
-        if (!tooltip) return;
-        tooltip.style.display = 'none';
-        tooltip.setAttribute('aria-hidden', 'true');
-      });
+        // Determine intensity level (0-4)
+        let level = 0;
+        if (dayData.count > 0) {
+          if (dayData.count >= 8) level = 4;
+          else if (dayData.count >= 5) level = 3;
+          else if (dayData.count >= 3) level = 2;
+          else level = 1;
+        }
+        day.setAttribute('data-level', level);
 
-      container.appendChild(day);
+        const tooltip = document.createElement('div');
+        tooltip.className = 'contrib-tooltip';
+        tooltip.textContent = `${dayData.count} contribution${dayData.count !== 1 ? 's' : ''} on ${dayData.date}`;
+
+        day.addEventListener('mouseenter', () => {
+          tooltip.style.display = 'block';
+          const rect = day.getBoundingClientRect();
+          tooltip.style.position = 'fixed';
+          tooltip.style.left = (rect.left + rect.width / 2 - 50) + 'px';
+          tooltip.style.top = (rect.top - 30) + 'px';
+        });
+
+        day.addEventListener('mouseleave', () => {
+          tooltip.style.display = 'none';
+        });
+
+        day.appendChild(tooltip);
+        weekEl.appendChild(day);
+      });
+      
+      container.appendChild(weekEl);
     });
   }
 

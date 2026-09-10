@@ -1784,6 +1784,74 @@ html[data-theme="dark"] .btn-outline:hover {
   container-type: inline-size;
 }
 
+.github-contrib-calendar-container {
+  width: 100%;
+  overflow-x: auto;
+  padding: 16px 0;
+}
+
+.github-contrib-calendar {
+  display: grid;
+  gap: 2px;
+  min-width: 100%;
+}
+
+.contrib-week {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contrib-day {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid var(--border);
+}
+
+.contrib-day:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+}
+
+.contrib-day[data-level="0"] {
+  background: var(--border);
+  opacity: 0.4;
+}
+
+.contrib-day[data-level="1"] {
+  background: rgba(79, 70, 229, 0.2);
+}
+
+.contrib-day[data-level="2"] {
+  background: rgba(79, 70, 229, 0.4);
+}
+
+.contrib-day[data-level="3"] {
+  background: rgba(79, 70, 229, 0.6);
+}
+
+.contrib-day[data-level="4"] {
+  background: var(--accent);
+}
+
+.contrib-tooltip {
+  position: absolute;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  pointer-events: none;
+  z-index: 1000;
+  white-space: nowrap;
+  display: none;
+}
+
 .github-languages-section {
   display: grid;
   gap: 12px;
