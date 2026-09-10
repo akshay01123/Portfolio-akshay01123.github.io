@@ -178,6 +178,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const active30 = countActiveDays(30);
         const active3mo = countActiveDays(92);
         const active6mo = countActiveDays(183);
+        const active1y = countActiveDays(365);
+
+        // Update progress bars for each time period
+        function updateProgressBar(elementId, count, total) {
+          const barEl = document.getElementById(elementId);
+          const statEl = document.getElementById(elementId + '-stat');
+          if (barEl && statEl) {
+            const percentage = total > 0 ? Math.round((count / total) * 100) : 0;
+            barEl.style.width = percentage + '%';
+            statEl.textContent = `${count}/${total} (${percentage}%)`;
+          }
+        }
+
+        updateProgressBar('progress-7d', active7, 7);
+        updateProgressBar('progress-30d', active30, 30);
+        updateProgressBar('progress-3mo', active3mo, 92);
+        updateProgressBar('progress-6m', active6mo, 183);
+        updateProgressBar('progress-1y', active1y, 365);
 
         // Merge streak info into the main stats line so all GitHub stats appear on one line
         const statsLine = document.getElementById('github-stats-line');
