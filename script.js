@@ -908,20 +908,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const scrollTargets = [
-    ...document.querySelectorAll('.hero, .section-section, .hero-card, .project-card, .experience-list > li, .skills-list li, .connect-card')
+    ...document.querySelectorAll('.hero, .section-section, .hero-card, .project-card, .experience-list > li, .skills-list li, .connect-card, .connect-icon-link')
   ];
 
   scrollTargets.forEach((target, index) => {
     target.classList.add('reveal-item');
 
-    if (target.matches('.project-card, .experience-list > li, .connect-card')) {
+    if (target.matches('.project-card, .experience-list > li, .connect-card, .connect-icon-link')) {
       target.classList.add('reveal-left');
     }
 
     if (target.matches('.experience-list > li')) {
       const itemIndex = Array.from(target.parentElement.children).indexOf(target);
       target.style.setProperty('--delay', `${itemIndex * 0.08}s`);
-    } else if (target.matches('.project-card, .connect-card, .hero-card, .skills-list li')) {
+    } else if (target.matches('.project-card, .connect-card, .connect-icon-link, .hero-card, .skills-list li')) {
       const itemIndex = Array.from(target.parentElement.children).indexOf(target);
       target.style.setProperty('--delay', `${itemIndex * 0.06}s`);
     }
@@ -943,7 +943,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const supportsHover = window.matchMedia('(hover: hover)').matches;
     if (reduceMotion || !supportsHover) return;
 
-    const cards = document.querySelectorAll('.hero-card, .skill-card, .project-card, .connect-card, .experience-list > li, .github-card');
+    const cards = document.querySelectorAll('.hero-card, .skill-card, .project-card, .connect-card, .connect-icon-link, .experience-list > li, .github-card');
     if (cards.length === 0) return;
 
     cards.forEach((card) => {

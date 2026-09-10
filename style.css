@@ -1610,12 +1610,17 @@ html[data-theme="dark"] .btn-outline:hover {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  pointer-events: auto;
+  position: relative;
+  z-index: 10;
 }
 
 .connect-icon-link svg {
   width: 24px;
   height: 24px;
   fill: currentColor;
+  pointer-events: none;
 }
 
 .connect-icon-link:hover {
@@ -1624,6 +1629,15 @@ html[data-theme="dark"] .btn-outline:hover {
   transform: translateY(-4px) scale(1.1);
   box-shadow: 0 8px 24px rgba(79, 70, 229, 0.3);
   border-color: var(--accent);
+}
+
+.connect-icon-link:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.connect-icon-link:active {
+  transform: translateY(-2px) scale(1.05);
 }
 
 .connect-card {
