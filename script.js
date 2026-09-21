@@ -209,13 +209,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Update progress bars for GitHub hero activity
-        const heroActEl = document.getElementById('github-activity-hero-text');
-        if (heroActEl) {
-          const active7 = countActiveDays(7);
-          const active30 = countActiveDays(30);
+        const active7 = countActiveDays(7);
+        const active30 = countActiveDays(30);
+        const active3mo = countActiveDays(92);
+        const active6mo = countActiveDays(183);
+
+        // Update 7-day bar
+        const bar7d = document.getElementById('hero-progress-7d');
+        const stat7d = document.getElementById('hero-progress-7d-stat');
+        if (bar7d && stat7d) {
           const pct7 = Math.round((active7 / 7) * 100);
+          bar7d.style.width = pct7 + '%';
+          stat7d.textContent = `${active7}/7 (${pct7}%)`;
+        }
+
+        // Update 30-day bar
+        const bar30d = document.getElementById('hero-progress-30d');
+        const stat30d = document.getElementById('hero-progress-30d-stat');
+        if (bar30d && stat30d) {
           const pct30 = Math.round((active30 / 30) * 100);
-          heroActEl.textContent = `7d: ${active7}/7 (${pct7}%) · 30d: ${active30}/30 (${pct30}%)`;
+          bar30d.style.width = pct30 + '%';
+          stat30d.textContent = `${active30}/30 (${pct30}%)`;
+        }
+
+        // Update 3-month bar
+        const bar3mo = document.getElementById('hero-progress-3mo');
+        const stat3mo = document.getElementById('hero-progress-3mo-stat');
+        if (bar3mo && stat3mo) {
+          const pct3mo = Math.round((active3mo / 92) * 100);
+          bar3mo.style.width = pct3mo + '%';
+          stat3mo.textContent = `${active3mo}/92 (${pct3mo}%)`;
+        }
+
+        // Update 6-month bar
+        const bar6mo = document.getElementById('hero-progress-6mo');
+        const stat6mo = document.getElementById('hero-progress-6mo-stat');
+        if (bar6mo && stat6mo) {
+          const pct6mo = Math.round((active6mo / 183) * 100);
+          bar6mo.style.width = pct6mo + '%';
+          stat6mo.textContent = `${active6mo}/183 (${pct6mo}%)`;
         }
     } catch (error) {
       console.error('GitHub stats fetch failed:', error);
